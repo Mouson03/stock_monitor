@@ -63,7 +63,7 @@ def main():
 
 while True:
     main()
-    print('analyze once')
+    #print('analyze once')
     sleep(5*60)
 
 
