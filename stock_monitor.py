@@ -62,4 +62,4 @@ def main():
 while True:
     main()
     print('分析一次')
-    sleep(10*60)
+    time.sleep(10*60)
