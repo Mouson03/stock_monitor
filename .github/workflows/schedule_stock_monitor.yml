@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository    #步骤的名称
-      uses: actions/checkout@v3    #检出仓库的代码
+      uses: actions/checkout@v4    #检出仓库的代码
 
     - name: Set up Python
       uses: actions/setup-python@v4
