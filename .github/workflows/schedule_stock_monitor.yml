@@ -3,7 +3,7 @@ name: 每天运行监控脚本
 on:
   schedule:
     # 设置启动时间，为 UTC 时间, UTC凌晨1点25分 对应北京时间早9点25分
-    - cron: '55 14 * * *'
+    - cron: '52 2 * * *'
 
 jobs:
   run-script:    #任务名称
