@@ -31,4 +31,4 @@ jobs:
         
     - name: Run Python script
       run: |
-        python stock_monitor.py
+        python stock_monitor_source.py
