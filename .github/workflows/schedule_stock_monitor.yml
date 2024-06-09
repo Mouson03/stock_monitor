@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout repository    #步骤的名称
-      uses: actions/checkout@v4    #检出仓库的代码
+      uses: actions/checkout@v5   #检出仓库的代码
 
     - name: Set up Python
-      uses: actions/setup-python@5
+      uses: actions/setup-python@4
       with:
         python-version: '3.10' # 选择Python脚本
 
