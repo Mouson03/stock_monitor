@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+-*- coding: utf-8 -*-
+
+#sys.stdout.reconfigure(encoding='utf-8')    # 设置输出为UTF-8编码
 
 #轻量化
 #1.取消非周末检查,非交易时间检查,sys,datetime,取消pandas(直接只用指数)2.index_poll改成列表 3.接口只用指数的
