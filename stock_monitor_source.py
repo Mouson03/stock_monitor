@@ -1,9 +1,10 @@
+'''
 -*- coding: utf-8 -*-
 import sys
 import io
 # 重新配置标准输出流为UTF-8编码
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
+'''
 #轻量化
 #1.取消非周末检查,非交易时间检查,sys,datetime,取消pandas(直接只用指数)2.index_poll改成列表 3.接口只用指数的
 import akshare as ak
