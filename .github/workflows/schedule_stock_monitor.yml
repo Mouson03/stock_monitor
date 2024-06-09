@@ -25,4 +25,5 @@ jobs:
         
     - name: Run Python script
       run: |
+        chcp 65001 # 设置终端为UTF-8编码
         python stock_monitor.py
