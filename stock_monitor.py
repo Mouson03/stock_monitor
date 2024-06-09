@@ -29,7 +29,7 @@ def analysis():
 
         if data['low_boll_percentage'].iloc[-1]>=0 and data['low_boll_percentage'].iloc[-2]<0:
             buy_signal_index_code.append(index_code)
-        elif data['high_boll_percentage'].iloc[-1]>=0:
+        elif data['high_boll_percentage'].iloc[-1]>=0.9:
             sell_signal_index_code.append(index_code)
 
     return buy_signal_index_code,sell_signal_index_code
