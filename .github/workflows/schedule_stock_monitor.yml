@@ -1,14 +1,14 @@
-name: 长时间测试
+name: 每日定时运行监控脚本
 
 on:
-  push:
-  #schedule:
+  #push:    #推送到任意分支后运行
+  schedule:
     # 设置启动时间，为 UTC 时间, UTC凌晨1点25分 对应北京时间早9点25分
-   # - cron: '52 2 * * *'
+    - cron: '54 3 * * *'
 
 jobs:
   run-script:    #任务名称
-    runs-on: ubuntu-latest  # 使用 Ubuntu 运行环境
+    runs-on: windows-latest  # 选择运行环境
 
     steps:
     - name: Checkout repository    #步骤的名称
@@ -17,12 +17,12 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10' # 选择Python脚本
+        python-version: '3.10' # 选择Python版本
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests akshare
+        pip install akshare requests
         
     - name: Run Python script
       run: |
