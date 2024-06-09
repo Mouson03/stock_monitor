@@ -65,9 +65,9 @@ def main():
 
 
 
-while True:
-    main()
+#while True:
+main()
     
-    sleep(5*60)
+#    sleep(5*60)
 
 
