@@ -1,5 +1,6 @@
 #轻量化
-#1.取消非周末检查,非交易时间检查,sys,datetime,取消pandas(直接只用指数)2.index_poll改成列表 3.接口只用指数的
+#相较于原版: 1.取消非周末检查,非交易时间检查,sys,datetime,取消pandas(直接只用指数)2.index_poll改成列表 3.接口暂时只用指数的
+#直接一直一天运行6个小时,每3分钟运行一次.如果当天出现信号从而一直通知的话可以手机关弹窗或进github修改代码
 import akshare as ak
 import requests
 import json
@@ -46,7 +47,7 @@ def send_dingtalk_message(message):
     }
     response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 
-send_dingtalk_message('actions监控程序长时间测试开始')
+send_dingtalk_message('actions监控程序开始运行')
 
 
 
@@ -61,5 +62,5 @@ def main():
 
 while True:
     main()
-    print('分析一次')
-    time.sleep(10*60)
+    #print('分析一次')
+    time.sleep(3*60)
