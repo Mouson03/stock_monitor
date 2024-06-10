@@ -1,15 +1,15 @@
-#workflow运行1分钟后才运行到python文件,以及workflow运行时间比设定的延迟 分钟
+#workflow运行1分钟后才运行到python文件,以及workflow运行时间比设定的延迟若干分钟(windows一般15分钟以下).因此设置每天9点运行,每3分钟分析一次.
 name: 每日定时运行监控脚本
 
 on:
   schedule:
-    - cron: '0 14 * * *'  #定时运行(UTC=北京时间-8h)
+    - cron: '30 14 * * *'  #定时运行(UTC=北京时间-8h)
   workflow_dispatch:      #手动运行
     #push:                #推送到任意分支后运行
 
 jobs:
   run-script:    #任务名称
-    runs-on: windows-latest  # 选择运行环境
+    runs-on: windows-2019  # 选择运行环境
 
     steps:
     - name: Checkout repository    #步骤的名称
