@@ -9,7 +9,7 @@ on:
 
 jobs:
   run-script:    #任务名称
-    runs-on: ubuntu-18.04  # 选择运行环境
+    runs-on: ubuntu-20.04  # 选择运行环境
 
     steps:
     - name: Checkout repository    #步骤的名称
