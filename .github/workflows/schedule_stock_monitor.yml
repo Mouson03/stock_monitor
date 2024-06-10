@@ -3,7 +3,7 @@ name: 每日定时运行监控脚本
 
 on:
   schedule:
-    - cron: '05 14 * * *'  #定时运行(UTC=北京时间-8h)
+    - cron: '0 14 * * *'  #定时运行(UTC=北京时间-8h)
   workflow_dispatch:      #手动运行
     #push:                #推送到任意分支后运行
 
