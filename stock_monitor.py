@@ -47,7 +47,7 @@ def send_dingtalk_message(message):
     }
     response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 
-send_dingtalk_message('actions监控程序开始运行')
+send_dingtalk_message('actions每日监控程序开始运行')
 
 
 
