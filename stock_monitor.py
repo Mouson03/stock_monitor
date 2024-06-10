@@ -59,8 +59,9 @@ def main():
         send_dingtalk_message(f"出现卖出信号:\n{sell_signal_index_code}")
 
 
-
+'''
 while True:
     main()
     #print('分析一次')
     time.sleep(3*60)
+'''
