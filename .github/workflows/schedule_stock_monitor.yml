@@ -1,9 +1,10 @@
 name: 每日定时运行监控脚本
 
 on:
-  #schedule:
-    #- cron: '20 2 * * *'
-    push:    #推送到任意分支后运行
+  schedule:
+    - cron: '20 2 * * *'  #定时运行
+  workflow_dispatch:      #手动运行
+    #push:                #推送到任意分支后运行
 
 jobs:
   run-script:    #任务名称
