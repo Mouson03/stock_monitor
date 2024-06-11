@@ -27,4 +27,8 @@ jobs:
         
     - name: Run Python script
       run: |
-        python monitor_holding.py monitor_unholding.py
+        Start-Process -FilePath python -ArgumentList "monitor_holding.py"
+        Start-Process -FilePath python -ArgumentList "monitor_unholding.py"
+        Wait-Process -Name python
+      shell: pwsh
+#        python monitor_holding.py monitor_unholding.py
