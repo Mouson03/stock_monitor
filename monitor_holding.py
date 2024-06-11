@@ -49,7 +49,7 @@ def send_dingtalk_message(message):
     }
     response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 
-send_dingtalk_message('actions每日监控程序开始运行')
+send_dingtalk_message('actions每日监控持有的程序开始运行')
 
 def is_rest_time():    #判断是否午盘休息
     now = datetime.now()
