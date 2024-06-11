@@ -1,5 +1,5 @@
 #轻量化
-#相较于原版: 1.取消非周末检查,非交易时间检查,sys,datetime,取消pandas(直接只用指数)2.index_poll改成列表 3.接口暂时只用指数的
+#相较于原版: 1.取消非周末检查,非交易时间检查,sys,datetime,取消pandas(直接只用指数)2.index_poll改成列表 3.接口暂时只用指数的https://github.com/Mouson03/stock_monitor/blob/main/stock_monitor.py
 #直接一直一天运行6个小时,每3分钟运行一次.如果当天出现信号从而一直通知的话可以手机关弹窗或进github修改代码
 import akshare as ak
 import requests
@@ -9,7 +9,7 @@ from datetime import datetime,time
 
 
 
-index_poll = ['sz399971','csi930606','sz399987','csi930653','csi930641','sz399998','sz399986','513080','518880','513030','159985','159981','159518','513880','159502','513310','159941','513500','513850']
+index_poll = ['sz399971','csi930606','sz399987','csi930653','csi930641']
 start_date = '20240430'
 end_date = '20240831'
 period = 20
