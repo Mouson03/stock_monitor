@@ -4,7 +4,8 @@
 import akshare as ak
 import requests
 import json
-import time
+from time import sleep
+import datetime,time
 
 
 index_poll = ['sz399673','sz399971','csi930606','sz399987','csi930653','csi930641']
@@ -49,18 +50,33 @@ def send_dingtalk_message(message):
 
 send_dingtalk_message('actions每日监控程序开始运行')
 
+def is_rest_time():    #判断是否午盘休息
+    now = datetime.now()
+
+    morning_end = time(11-8, 30)
+    afternoon_start = time(13-8, 00)
+
+    if (morning_end <= now.time() <= afternoon_start):
+        return True
+    else:
+        return False
+
 
 
 def main():
     buy_signal_index_code,sell_signal_index_code=analysis()
-    if len(buy_signal_index_code)>0:
-        send_dingtalk_message(f"出现买入信号:\n{buy_signal_index_code}")
-    if len(sell_signal_index_code)>0:
-        send_dingtalk_message(f"出现卖出信号:\n{sell_signal_index_code}")
+    if len(buy_signal_index_code) + len(sell_signal_index_code)>0    #先判断是否有信号出现
+        if len(buy_signal_index_code)>0:
+            send_dingtalk_message(f"出现买入信号:\n{buy_signal_index_code}")
+        if len(sell_signal_index_code)>0:
+            send_dingtalk_message(f"出现卖出信号:\n{sell_signal_index_code}")
 
 
 
 while True:
-    main()
-    #print('分析一次')
-    time.sleep(3*60)
+    if not is_rest_time():
+        main()
+        sleep(5*60)
+    else:
+        sleep(30*60)
+        
