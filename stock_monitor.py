@@ -66,7 +66,6 @@ def is_rest_time():    #判断是否午盘休息
 
 def main():
     buy_signal_index_code,sell_signal_index_code=analysis()
-    if len(buy_signal_index_code) + len(sell_signal_index_code)>0    #先判断是否有信号出现
         if len(buy_signal_index_code)>0:
             send_dingtalk_message(f"出现买入信号:\n{buy_signal_index_code}")
         if len(sell_signal_index_code)>0:
