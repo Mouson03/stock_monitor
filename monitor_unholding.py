@@ -15,23 +15,23 @@ k = 2
 
 def analysis():
     buy_signal_index_code=[]
-
-    if any(char.isalpha() for char in str(index_code)):
-        data = ak.stock_zh_index_daily_em(symbol=index_code, start_date=start_date, end_date=end_date)     #指数接口
-    else:
-        data = ak.fund_etf_hist_em(symbol=index_code, period="daily", start_date=start_date, end_date=end_date,adjust="qfq")      #基金接口
-        new_names = {'收盘': 'close', '最高': 'high', '最低': 'low','成交量':'volume'}
-        data.rename(columns=new_names, inplace=True)
-
-        data['SD'] = data['close'].rolling(window=period).std(ddof=1)
-        data['MB'] = data['close'].rolling(window=period).mean()
-        data['UB'] = data['MB'] + k * data['SD']
-        data['LB'] = data['MB'] - k * data['SD']
-        data['low_boll_percentage'] = data['low'].sub(data['LB']).div(data['UB'].sub(data['LB']))
-        data['high_boll_percentage'] = data['high'].sub(data['LB']).div(data['UB'].sub(data['LB']))
-         if data['low_boll_percentage'].iloc[-1]>=0:
-        #if data['low_boll_percentage'].iloc[-1]>=0 and data['low_boll_percentage'].iloc[-2]<0:
-            buy_signal_index_code.append(index_code)
+    for index_code in index_poll:
+        if any(char.isalpha() for char in str(index_code)):
+            data = ak.stock_zh_index_daily_em(symbol=index_code, start_date=start_date, end_date=end_date)     #指数接口
+        else:
+            data = ak.fund_etf_hist_em(symbol=index_code, period="daily", start_date=start_date, end_date=end_date,adjust="qfq")      #基金接口
+            new_names = {'收盘': 'close', '最高': 'high', '最低': 'low','成交量':'volume'}
+            data.rename(columns=new_names, inplace=True)
+    
+            data['SD'] = data['close'].rolling(window=period).std(ddof=1)
+            data['MB'] = data['close'].rolling(window=period).mean()
+            data['UB'] = data['MB'] + k * data['SD']
+            data['LB'] = data['MB'] - k * data['SD']
+            data['low_boll_percentage'] = data['low'].sub(data['LB']).div(data['UB'].sub(data['LB']))
+            #data['high_boll_percentage'] = data['high'].sub(data['LB']).div(data['UB'].sub(data['LB']))
+             if data['low_boll_percentage'].iloc[-1]>=0:
+            #if data['low_boll_percentage'].iloc[-1]>=0 and data['low_boll_percentage'].iloc[-2]<0:
+                buy_signal_index_code.append(index_code)
 
     return buy_signal_index_code
 
