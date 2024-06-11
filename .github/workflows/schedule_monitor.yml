@@ -28,7 +28,7 @@ jobs:
     - name: Run Python script
       shell: pwsh
       run: |
-        $script1 = Start-Process -FilePath python -ArgumentList "monitor_unholding.py" -PassThru
+        $script1 = Start-Process -FilePath python -ArgumentList "test.py" -PassThru
         $script2 = Start-Process -FilePath python -ArgumentList "monitor_holding.py" -PassThru
         $script1 | Wait-Process
         $script2 | Wait-Process
