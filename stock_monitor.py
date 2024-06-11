@@ -5,7 +5,8 @@ import akshare as ak
 import requests
 import json
 from time import sleep
-import datetime,time
+from datetime import datetime,time
+
 
 
 index_poll = ['sz399673','sz399971','csi930606','sz399987','csi930653','csi930641']
