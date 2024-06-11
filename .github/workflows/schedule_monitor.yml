@@ -27,4 +27,5 @@ jobs:
         
     - name: Run Python script
       run: |
-        python stock_monitor.py
+        python monitor_holding.py
+        python monitor_unholding.py
