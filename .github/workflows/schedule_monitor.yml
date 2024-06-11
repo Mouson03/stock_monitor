@@ -26,9 +26,14 @@ jobs:
         pip install akshare requests datetime
         
     - name: Run Python script
-      run: |
-        Start-Process -FilePath python -ArgumentList "monitor_holding.py"
-        Start-Process -FilePath python -ArgumentList "monitor_unholding.py"
-        Wait-Process -Name python
       shell: pwsh
+      run: |
+        $script1 = Start-Process -FilePath python -ArgumentList "monitor_holding.py" -PassThru
+        $script2 = Start-Process -FilePath python -ArgumentList "monitor_unholding.py" -PassThru
+        $script1 | Wait-Process
+        $script2 | Wait-Process
+#        Start-Process -FilePath python -ArgumentList "monitor_holding.py"
+#        Start-Process -FilePath python -ArgumentList "monitor_unholding.py"
+#        Wait-Process -Name python
+#      shell: pwsh
 #        python monitor_holding.py monitor_unholding.py
