@@ -79,5 +79,5 @@ while True:
         main()
         sleep(5*60)
     else:
-        sleep(30*60)
+        sleep(90*60)
         
