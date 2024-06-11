@@ -49,7 +49,9 @@ def send_dingtalk_message(message):
     }
     response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 
-send_dingtalk_message('actions每日监控持有的程序开始运行')
+send_dingtalk_message('actions每日监控程序开始运行 | 未持有')
+
+
 
 def is_rest_time():    #判断是否午盘休息
     now = datetime.now()
@@ -67,9 +69,9 @@ def is_rest_time():    #判断是否午盘休息
 def main():
     buy_signal_index_code,sell_signal_index_code=analysis()
     if len(buy_signal_index_code)>0:
-        send_dingtalk_message(f"持有部分出现买入信号:\n{buy_signal_index_code}")
+        send_dingtalk_message(f"持有 | 买:\n{buy_signal_index_code}")
     if len(sell_signal_index_code)>0:
-        send_dingtalk_message(f"持有部分出现卖出信号:\n{sell_signal_index_code}")
+        send_dingtalk_message(f"持有 | 卖:\n{buy_signal_index_code}")
 
 
 
