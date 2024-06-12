@@ -20,7 +20,12 @@ def analysis():
     sell_signal_index_code=[]
 
     for index_code in index_poll:
-        data = ak.stock_zh_index_daily_em(symbol=index_code, start_date=start_date, end_date=end_date)
+        if any(char.isalpha() for char in str(index_code)):
+            data = ak.stock_zh_index_daily_em(symbol=index_code, start_date=start_date, end_date=end_date)     #指数接口
+        else:
+            data = ak.fund_etf_hist_em(symbol=index_code, period="daily", start_date=start_date, end_date=end_date,adjust="qfq")      #基金接口
+            new_names = {'收盘': 'close', '最高': 'high', '最低': 'low','成交量':'volume'}
+            data.rename(columns=new_names, inplace=True)
 
         data['SD'] = data['close'].rolling(window=period).std(ddof=1)
         data['MB'] = data['close'].rolling(window=period).mean()
@@ -71,7 +76,7 @@ def main():
     if len(buy_signal_index_code)>0:
         send_dingtalk_message(f"持有 | 买:\n{buy_signal_index_code}")
     if len(sell_signal_index_code)>0:
-        send_dingtalk_message(f"持有 | 卖:\n{buy_signal_index_code}")
+        send_dingtalk_message(f"持有 | 卖:\n{sell_signal_index_code}")
 
 
 
