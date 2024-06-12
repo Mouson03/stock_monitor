@@ -20,13 +20,8 @@ def analysis():
     sell_signal_index_code=[]
 
     for index_code in index_poll:
-        #data = ak.stock_zh_index_daily_em(symbol=index_code, start_date=start_date, end_date=end_date)
-        data = ak.stock_zh_index_daily_em(symbol=index_code, start_date=start_date, end_date=end_date)     #指数接口
-    else:
-        data = ak.fund_etf_hist_em(symbol=index_code, period="daily", start_date=start_date, end_date=end_date,adjust="qfq")      #基金接口
-        new_names = {'收盘': 'close', '最高': 'high', '最低': 'low','成交量':'volume'}
-        data.rename(columns=new_names, inplace=True)
-        
+        data = ak.stock_zh_index_daily_em(symbol=index_code, start_date=start_date, end_date=end_date)
+
         data['SD'] = data['close'].rolling(window=period).std(ddof=1)
         data['MB'] = data['close'].rolling(window=period).mean()
         data['UB'] = data['MB'] + k * data['SD']
