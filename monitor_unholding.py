@@ -29,8 +29,8 @@ def analysis():
         data['LB'] = data['MB'] - k * data['SD']
         data['low_boll_percentage'] = data['low'].sub(data['LB']).div(data['UB'].sub(data['LB']))
         #data['high_boll_percentage'] = data['high'].sub(data['LB']).div(data['UB'].sub(data['LB']))
-        #if data['low_boll_percentage'].iloc[-1]>=0:
-        if data['low_boll_percentage'].iloc[-1]>=0 and data['low_boll_percentage'].iloc[-2]<0:
+        if data['low_boll_percentage'].iloc[-1]>=-1:
+        #if data['low_boll_percentage'].iloc[-1]>=0 and data['low_boll_percentage'].iloc[-2]<0:
             buy_signal_index_code.append(index_code)
 
     return buy_signal_index_code
