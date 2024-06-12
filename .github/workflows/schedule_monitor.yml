@@ -6,6 +6,8 @@ on:
     - cron: '50 0 * * 1-5'  #定时运行(UTC=北京时间-8h)
   workflow_dispatch:      #手动运行
     #push:                #推送到任意分支后运行
+  repository_dispatch:
+    types: [Cron-job_trigger]
 
 jobs:
   run-script:    #任务名称
