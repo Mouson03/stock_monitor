@@ -3,7 +3,7 @@ name: 每日定时运行监控脚本
 
 on:
   schedule:
-    - cron: '30 0 * * 1-5'  #定时运行(UTC=北京时间-8h)
+    - cron: '20 0 * * 1-5'  #定时运行(UTC=北京时间-8h)
     #push:                #推送到任意分支后运行
   workflow_dispatch:
     inputs:
@@ -13,7 +13,7 @@ on:
 
 jobs:
   run-script:    #任务名称
-    runs-on: windows-2019  # 选择运行环境
+    runs-on: ubuntu-latest  # 选择运行环境
 
     steps:
     - name: Checkout repository    #步骤的名称
