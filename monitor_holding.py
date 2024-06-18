@@ -9,7 +9,7 @@ from datetime import datetime,time
 
 
 
-index_poll = ['sz399971','csi930606','sz399987','csi930653','csi930641','518880']
+index_poll = ['518880']
 start_date = '20240430'
 end_date = '20240831'
 period = 20
