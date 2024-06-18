@@ -1,15 +1,12 @@
+#监控先关了,等放假再开回来
 #workflow运行1分钟后才运行到python文件,以及workflow运行时间比设定的延迟若干分钟(windows一般15分钟以下).因此设置每天9点运行,每3分钟分析一次.
 name: 每日定时运行监控脚本
 
 on:
-  schedule:
-    - cron: '20 0 * * 1-5'  #定时运行(UTC=北京时间-8h)
+  #schedule:
+  #  - cron: '20 0 * * 1-5'  #定时运行(UTC=北京时间-8h)
     #push:                #推送到任意分支后运行
   workflow_dispatch:
-    inputs:
-      trigger:
-        description: 'Trigger the workflow'
-        required: true
 
 jobs:
   run-script:    #任务名称
