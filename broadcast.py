@@ -22,4 +22,4 @@ def send_dingtalk_message(message):
     }
     response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 
-send_dingtalk_message(f"纳斯达克100 {NDX_price_change_percentage}%\n标普500 {INX_price_change_percentage}\n道琼斯 {DJI_price_change_percentage}")  
+send_dingtalk_message(f"纳斯达克100 {NDX_price_change_percentage}%\n标普500 {INX_price_change_percentage}%\n道琼斯 {DJI_price_change_percentage}%")  
