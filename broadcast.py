@@ -58,6 +58,8 @@ message=f'''纳斯达克100     {NDX_price_change_percentage}%
 标普500           {INX_price_change_percentage}%
 道琼斯              {DJI_price_change_percentage}%
 
+---------------------------
+
 MACD:
 纳斯达克100     {NDX_MACD}
 标普500           {INX_MACD}
