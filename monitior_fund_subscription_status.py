@@ -23,5 +23,3 @@ for symbol in fund_code:
     print(data)
     if data['申购状态'].iloc[-1]!='暂停申购':
        send_dingtalk_message(f"基金{symbol}开放申购")
-    else:
-        print('无基金开放申购')
