@@ -26,14 +26,6 @@ jobs:
     - name: Create artifacts directory
       run: mkdir -p artifacts
 
-    - name: Download previous artifacts if available
-      id: download-artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: etf-premium-rates
-        path: ./artifacts
-      continue-on-error: true
-
     - name: Run ETF_PremiumRate_Record_Alert.py script
       run: python ETF_PremiumRate_Record_Alert.py
       env:
