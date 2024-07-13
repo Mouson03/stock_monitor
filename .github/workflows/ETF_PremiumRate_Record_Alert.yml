@@ -27,6 +27,16 @@ jobs:
       run: |
         python ETF_PremiumRate_Record_Alert.py
 
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add etf_premium_rates.csv actions_running_log.txt
+        git commit -m 'Update ETF premium rates and log'
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Upload ETF Premium Rates CSV
       uses: actions/upload-artifact@v2
       with:
@@ -37,4 +47,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: etf-premium-rates-log
-        path: etf_premium_rates_log.txt    
+        path: actions_running_log.txt
