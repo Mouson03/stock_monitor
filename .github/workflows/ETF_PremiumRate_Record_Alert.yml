@@ -23,11 +23,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install akshare pandas requests
         
-    - name: Download previous artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: etf-premium-rates
-        path: ./artifacts
+    #- name: Download previous artifacts
+      #uses: actions/download-artifact@v2
+      #with:
+        #name: etf-premium-rates
+        #path: ./artifacts
 
     - name: Run ETF_PremiumRate_Record_Alert.py script
       run: python ETF_PremiumRate_Record_Alert.py
