@@ -26,3 +26,15 @@ jobs:
     - name: Run ETF_PremiumRate_Record_Alert.py script
       run: |
         python ETF_PremiumRate_Record_Alert.py
+
+    - name: Upload ETF Premium Rates CSV
+      uses: actions/upload-artifact@v2
+      with:
+        name: etf-premium-rates
+        path: etf_premium_rates.csv
+
+    - name: Upload Log File
+      uses: actions/upload-artifact@v2
+      with:
+        name: etf-premium-rates-log
+        path: etf_premium_rates_log.txt    
