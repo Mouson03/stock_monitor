@@ -23,27 +23,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install akshare pandas requests
         
+    - name: Download previous artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: etf-premium-rates
+        path: ./artifacts
+
     - name: Run ETF_PremiumRate_Record_Alert.py script
       run: python ETF_PremiumRate_Record_Alert.py
-
-    - name: Commit and push changes
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add etf_premium_rates.csv actions_running_log.txt
-        git commit -m 'Update ETF premium rates and log'
-        git push https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CSV_PATH: ./artifacts/etf_premium_rates.csv
 
     - name: Upload ETF Premium Rates CSV
       uses: actions/upload-artifact@v2
       with:
         name: etf-premium-rates
-        path: etf_premium_rates.csv
-
-    - name: Upload Log File
-      uses: actions/upload-artifact@v2
-      with:
-        name: etf-premium-rates-log
-        path: actions_running_log.txt
+        path: ./artifacts/etf_premium_rates.csv
