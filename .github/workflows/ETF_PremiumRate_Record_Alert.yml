@@ -2,21 +2,21 @@ name: ETF溢价率每日记录及持有ETF溢价率预警
 
 on:
   schedule:
-    - cron: '15 3 * * 1-5' #每周1-5 早11点15分 开始
+    - cron: '15 3 * * 1-5' # 每周1-5 早11点15分 开始
   workflow_dispatch:
 
 jobs:
-  run-ETF_script:    #任务名称
-    runs-on: ubuntu-latest  # 选择运行环境
+  run-ETF_script:
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository    #步骤的名称
-      uses: actions/checkout@v4   #检出仓库的代码
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10' # 选择Python版本
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
@@ -24,8 +24,7 @@ jobs:
         pip install akshare pandas requests
         
     - name: Run ETF_PremiumRate_Record_Alert.py script
-      run: |
-        python ETF_PremiumRate_Record_Alert.py
+      run: python ETF_PremiumRate_Record_Alert.py
 
     - name: Commit and push changes
       run: |
@@ -33,7 +32,7 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add etf_premium_rates.csv actions_running_log.txt
         git commit -m 'Update ETF premium rates and log'
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+        git push https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
