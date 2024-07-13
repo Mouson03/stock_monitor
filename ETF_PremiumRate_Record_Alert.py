@@ -56,7 +56,7 @@ result_df = pd.DataFrame([result_dict])
 # 文件名
 file_name = "etf_premium_rates.csv"
 result_df.to_csv(file_name, index=False)
-'''
+
 # 读取现有的CSV文件
 existing_df = pd.read_csv(file_name)
 
@@ -87,4 +87,3 @@ with open(log_file, 'a') as f:
     f.write(f"{log_message}\n")
 
 print(f"{today}的ETF溢价率已记录，持有ETF溢价率阈值已检查,运行日志已记录。")
-'''
