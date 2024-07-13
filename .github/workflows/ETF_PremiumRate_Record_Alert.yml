@@ -22,14 +22,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install akshare pandas requests
-
+        
     - name: Create artifacts directory
-      run: mkdir -p artifacts    
-    #- name: Download previous artifacts
-      #uses: actions/download-artifact@v2
-      #with:
-        #name: etf-premium-rates
-        #path: ./artifacts
+      run: mkdir -p artifacts
+
+    - name: Download previous artifacts if available
+      id: download-artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: etf-premium-rates
+        path: ./artifacts
+      continue-on-error: true
 
     - name: Run ETF_PremiumRate_Record_Alert.py script
       run: python ETF_PremiumRate_Record_Alert.py
@@ -37,7 +40,7 @@ jobs:
         CSV_PATH: ./artifacts/etf_premium_rates.csv
 
     - name: Upload ETF Premium Rates CSV
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: etf-premium-rates
         path: ./artifacts/etf_premium_rates.csv
