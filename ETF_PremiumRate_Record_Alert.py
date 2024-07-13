@@ -8,14 +8,14 @@ import json
 # ETF列表，替换为你的基金代码列表
 etf_list = ['159941','513100','159632','159513','513300','159501','513390','159696','513110','159659','159660','513870']
 
-'''
+
 # 持有的ETF及其对应的溢价率阈值
 holdings = {
-    '159941': 1.0,
-    '513100': 2.0,
+    #'159941': 1.0,
+    #'513100': 2.0,
     # 添加更多的持有ETF和阈值
 }
-'''
+
 
 # 获取当前日期
 today = datetime.datetime.today().strftime('%Y-%m-%d')
@@ -59,7 +59,7 @@ result_df = pd.DataFrame([result_dict])
 # 文件名
 file_name = "etf_premium_rates.csv"
 result_df.to_csv(file_name, index=False)
-
+'''
 # 读取现有的CSV文件
 existing_df = pd.read_csv(file_name)
 
@@ -90,3 +90,4 @@ with open(log_file, 'a') as f:
     f.write(f"{log_message}\n")
 
 print(f"{today}的ETF溢价率已记录，持有ETF溢价率阈值已检查,运行日志已记录。")
+'''
