@@ -1,0 +1,28 @@
+name: ETF溢价率每日记录及持有ETF溢价率预警
+
+on:
+  schedule:
+    - cron: '15 3 * * 1-5' #每周1-5 早11点15分 开始
+  workflow_dispatch:
+
+jobs:
+  run-ETF_script:    #任务名称
+    runs-on: ubuntu-latest  # 选择运行环境
+
+    steps:
+    - name: Checkout repository    #步骤的名称
+      uses: actions/checkout@v4   #检出仓库的代码
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10' # 选择Python版本
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install akshare pandas requests
+        
+    - name: Run ETF_PremiumRate_Record_Alert.py script
+      run: |
+        python ETF_PremiumRate_Record_Alert.py
