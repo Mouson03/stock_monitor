@@ -1,3 +1,4 @@
+#去除运行日志记录
 #1.溢价率和涨跌幅单位是%  2.记录每天中午休息时的溢价率(即actions每周1-5早11点15分运行)
 import akshare as ak
 import pandas as pd
@@ -10,9 +11,9 @@ etf_list = ['159941','513100','159632','159513','513300','159501','513390','1596
 
 # 持有的ETF及其对应的溢价率阈值
 holdings = {
-    #'000000':0.0    #添加这个避免无持有ETF时字典为空
-    '159941': 1.0,
-    '513100': 2.0
+    '159941': 4.0,
+    '513100': 4.0,
+    '159501': 4.0
     # 添加更多的持有ETF和阈值
 }
 
@@ -80,11 +81,6 @@ def send_dingtalk_message(message):
     response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 for message in alert_messages:
     send_dingtalk_message(message)
-
-# 记录运行日志
-log_message = f"{today}  \"ETF溢价率记录及预警\"  程序运行完毕"
-log_file = "actions_running_log.txt"
-with open(log_file, 'a') as f:
-    f.write(f"{log_message}\n")
+)
 
 print(f"{today}的ETF溢价率已记录，持有ETF溢价率阈值已检查,运行日志已记录。")
