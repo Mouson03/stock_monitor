@@ -23,9 +23,3 @@ for symbol in fund_code:
     print(data)
     if data['申购状态'].iloc[-1]!='暂停申购':
        send_dingtalk_message(f"基金{symbol}开放申购")
-
-# 记录运行日志
-log_message = f"{today}  \"ETF溢价率记录及预警\"  程序运行完毕"
-log_file = "actions_running_log.txt"
-with open(log_file, 'a') as f:
-    f.write(f"{log_message}\n")
