@@ -26,13 +26,3 @@ jobs:
     - name: Run monitor_funds script
       run: |
         python monitior_fund_subscription_status.py
-
-    - name: Commit and push changes
-      run: |
-        git config --global user.email "[email protected]"
-        git config --global user.name "github-actions[bot]"
-        git add actions_running_log.txt
-        git commit -m "Update fund_subscription_status running log"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
