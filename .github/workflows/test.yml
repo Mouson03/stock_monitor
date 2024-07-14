@@ -1,0 +1,32 @@
+name: Daily Test Script
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天凌晨运行一次
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # 替换为你需要的Python版本
+
+    - name: Run Python script
+      run: python test.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add test.txt
+        git commit -m 'Update test.txt'
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
