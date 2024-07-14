@@ -80,7 +80,7 @@ def send_dingtalk_message(message):
     }
     response = requests.post(webhook_url, headers=headers, data=json.dumps(data))
 for message in alert_messages:
-    send_dingtalk_message(alert_messages)
+    send_dingtalk_message(message)
 
 # 记录运行日志
 log_message = f"{today}  \"ETF溢价率记录及预警\"  程序运行完毕"
