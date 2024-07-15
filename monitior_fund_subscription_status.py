@@ -21,6 +21,7 @@ fund_code=['164824','161128']
 for symbol in fund_code:
     data = ak.fund_etf_fund_info_em(fund=symbol, start_date="20240701", end_date="20241231")
     if data['申购状态'].iloc[-1]!='暂停申购':
-       send_dingtalk_message(f"基金{symbol}开放申购")
+        send_dingtalk_message(f"基金{symbol}开放申购")
+        print(f"基金{symbol}  开放申购")
     else:
-        print(f"基金{symbol}开放申购")
+        print(f"基金{symbol}  暂停申购")
