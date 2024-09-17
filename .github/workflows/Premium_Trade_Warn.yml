@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install akshare requests json
+        pip install akshare requests
 
     - name: Run python script
       run: python Premium_Trade_Warn.py
