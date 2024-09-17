@@ -7,7 +7,7 @@ import json
 holdings = {
     #'159941': {'lower': -2.0, 'upper': 2.0},
     '513100': {'lower': -999, 'upper': 3.5},
-    '513300': {'lower': 8.0, 'upper': 999},
+    '513300': {'lower': 4.0, 'upper': 999},
     '159509': {'lower': 12.0, 'upper': 999},
 }
 
