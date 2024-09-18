@@ -2,7 +2,7 @@ name: 溢价率交易提醒
 
 on:
   schedule:
-    - cron: '30 1 * * 1-5' # 每周1-5 早9点30分 开始
+    - cron: '45 1 * * 1-5' # 每周1-5 早9点45分 开始
   workflow_dispatch:
 
 jobs:
