@@ -1,0 +1,49 @@
+name: boll均值回归策略-监控
+
+on:
+  schedule:
+    - cron: '07 1 * * 1-5'  # 09:37 CST
+    - cron: '23 1 * * 1-5'  # 09:53 CST
+    - cron: '37 1 * * 1-5'  # 10:07 CST
+    - cron: '53 1 * * 1-5'  # 10:23 CST
+    - cron: '07 2 * * 1-5'  # 10:37 CST
+    - cron: '23 2 * * 1-5'  # 10:53 CST
+    - cron: '37 2 * * 1-5'  # 11:07 CST
+    - cron: '53 2 * * 1-5'  # 11:23 CST
+    - cron: '07 5 * * 1-5'  # 13:07 CST
+    - cron: '23 5 * * 1-5'  # 13:23 CST
+    - cron: '37 5 * * 1-5'  # 13:37 CST
+    - cron: '53 5 * * 1-5'  # 13:53 CST
+    - cron: '07 6 * * 1-5'  # 14:07 CST
+    - cron: '23 6 * * 1-5'  # 14:23 CST
+    - cron: '37 6 * * 1-5'  # 14:37 CST
+    - cron: '53 6 * * 1-5'  # 14:53 CST
+  workflow_dispatch:
+
+jobs:
+  strategy-monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3  # 执行超时限制
+
+    steps:
+    - name: 检出仓库
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1  # 只拉取最近一次commit，加快检出速度
+
+    - name: 设置Python3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+        cache: 'pip'  # 启用pip缓存
+
+    - name: 安装依赖
+      run: |
+        python -m pip install --upgrade pip
+        pip install akshare~=1.10.0 pandas~=1.5.3 requests~=2.28.2
+
+    - name: 运行监控程序
+      env:
+        DING_SECRET: ${{ secrets.DINGTALK_SECRET }}
+        DING_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
+      run: python -u stock_monitor.py  # -u参数禁用输出缓冲
