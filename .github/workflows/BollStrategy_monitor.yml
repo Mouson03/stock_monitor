@@ -41,4 +41,4 @@ jobs:
         pip install akshare pandas requests
 
     - name: 运行监控程序
-      run: python boll_strategy monitor.py
+      run: python BollStrategy_monitor.py
