@@ -46,4 +46,4 @@ jobs:
       env:
         DING_SECRET: ${{ secrets.DINGTALK_SECRET }}
         DING_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
-      run: python -u stock_monitor.py  # -u参数禁用输出缓冲
+      run: python -u boll_strategy monitor.py  # -u参数禁用输出缓冲
