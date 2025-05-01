@@ -1,3 +1,5 @@
+#设置一天运行多次.避开高峰分钟段(如每小时的07、23、37、53)。
+#因为工作流延迟触发时超过下一个触发时间，则下一个触发时间就不会执行了。因此执行间隔设置小一点
 name: boll均值回归策略-监控
 
 on:
@@ -23,19 +25,15 @@ on:
 jobs:
   strategy-monitor:
     runs-on: ubuntu-latest
-    timeout-minutes: 3  # 执行超时限制
-
+    
     steps:
     - name: 检出仓库
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 1  # 只拉取最近一次commit，加快检出速度
 
     - name: 设置Python3.10
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"
-        cache: 'pip'  # 启用pip缓存
 
     - name: 安装依赖
       run: |
@@ -43,7 +41,4 @@ jobs:
         pip install akshare~=1.10.0 pandas~=1.5.3 requests~=2.28.2
 
     - name: 运行监控程序
-      env:
-        DING_SECRET: ${{ secrets.DINGTALK_SECRET }}
-        DING_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
-      run: python -u boll_strategy monitor.py  # -u参数禁用输出缓冲
+      run: python boll_strategy monitor.py
