@@ -23,7 +23,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  strategy-monitor:
+  BollStrategy-monitor:
     runs-on: ubuntu-latest
     
     steps:
