@@ -15,7 +15,7 @@ DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1
 DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"       # 钉钉机器人webhooks链接
 STOCKS = [
     #A股股票-新浪 : 需市场标识,股票代码可以在 ak.stock_zh_a_spot() 中获取
-    {"code": "sh601939", "market": "A股股票-新浪"},   #中国银行
+    {"code": "sh601988", "market": "A股股票-新浪"},   #中国银行
 
     #ETF-东财 ： 不需市场标识，ETF 代码可以在 ak.fund_etf_spot_em() 中获取或查看东财主页
     {"code": "512800", "market": "ETF-东财"},  #银行ETF
