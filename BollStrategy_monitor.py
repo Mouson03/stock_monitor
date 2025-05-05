@@ -24,9 +24,10 @@ STOCKS = [
     #同花顺-适合boll策略:
     {"code": "518850", "market": "ETF-东财"},  #黄金ETF华夏
     {"code": "sz399986", "market": "A股指数-东财"},  #中证银行
+    {"code": "sh000922", "market": "A股指数-东财"},  # 中证红利
+    {"code": "csiH30269", "market": "A股指数-东财"},  #红利低波
     {"code": "sh000824", "market": "A股指数-东财"},  #国企红利
     {"code": "sh000825", "market": "A股指数-东财"},  #央企红利
-    {"code": "csiH30269", "market": "A股指数-东财"},  #红利低波
     {"code": "csi930914", "market": "A股指数-东财"},  #港股通高股息
     {"code": "HSTECH", "market": "港股指数-东财"},  #恒生科技指数
     {"code": "513520", "market": "ETF-东财"},  #日经ETF
