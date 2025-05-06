@@ -218,7 +218,10 @@ def main():
     for stock in STOCKS:
         print(f"代码 : {stock['code']}")      #用于查看程序运行进度
         df = get_stock_data(stock['code'], stock['market'])
-        print(f"最新收盘价 : {df['close'].iloc[-1]}\n")        #用于检查代码和数据是否正确对应
+        if df is not None:                                           #用于检查代码和数据是否正确对应
+            print(f"最新收盘价 : {df['close'].iloc[-1]}\n")
+        else:
+            print(f"最新收盘价 : None\n")
         signal = check_boll_signal(df)
         if signal:
             # 使用标准字段获取价格
