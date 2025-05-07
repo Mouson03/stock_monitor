@@ -22,7 +22,8 @@ STOCKS = [
 
     #标的-监控买入信号
     #同花顺-适合boll策略:
-    {"code": "518850", "market": "ETF-东财", "monitor": "buy"},  #黄金ETF华夏
+    {"code": "518850", "market": "ETF-东财", "monitor": "buy"},  # 黄金ETF华夏
+    {"code": "161226", "market": "ETF-东财", "monitor": "buy"},  # 国投白银LOF
     {"code": "sz399986", "market": "A股指数-东财", "monitor": "buy"},  #中证银行
     {"code": "sh000922", "market": "A股指数-东财", "monitor": "buy"},  # 中证红利
     {"code": "csiH30269", "market": "A股指数-东财", "monitor": "buy"},  # 红利低波
@@ -165,6 +166,8 @@ STOCKS = [
     {"code": "sh600019", "market": "A股股票-新浪", "monitor": "buy"},  # 宝钢股份
     {"code": "sz000429", "market": "A股股票-新浪", "monitor": "buy"},  # 粤高速A
     {"code": "sh600350", "market": "A股股票-新浪", "monitor": "buy"},  # 山东高速
+    {"code": "sh601006", "market": "A股股票-新浪", "monitor": "buy"},  # 大秦铁路
+    {"code": "sh600377", "market": "A股股票-新浪", "monitor": "buy"},  # 宁沪高速
 
     #标的-监控卖出信号
 
