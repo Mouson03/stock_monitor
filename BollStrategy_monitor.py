@@ -214,11 +214,11 @@ def get_stock_data(code, market):
     try:
         # 获取原始数据
         if market == "A股股票-新浪":
-            raw_df = ak.stock_zh_a_daily(symbol=code , adjust="qfq")
+            raw_df = ak.stock_zh_a_daily(symbol=code , start_date="20250401" , adjust="qfq")
         elif market == "ETF-东财":
-            raw_df = ak.fund_etf_hist_em(symbol=code,adjust="qfq")
+            raw_df = ak.fund_etf_hist_em(symbol=code , start_date="20250401" , adjust="qfq")
         elif market == "A股指数-东财":
-            raw_df = ak.stock_zh_index_daily_em(symbol=code)
+            raw_df = ak.stock_zh_index_daily_em(symbol=code , start_date="20250401")
         elif market == "港股指数-东财":
             raw_df = ak.stock_hk_index_daily_em(symbol=code)
         else:
@@ -231,7 +231,7 @@ def get_stock_data(code, market):
         df.columns = ['date', 'open', 'high', 'low', 'close']
 
         # 处理数据
-        df = df.iloc[-(BOLL_WINDOW + 200):]  # 保留足够计算BOLL的数据
+        df = df.iloc[-(BOLL_WINDOW + 0):]  # 保留足够计算BOLL的数据
         df['date'] = pd.to_datetime(df['date'])  # 统一日期格式
         return df.sort_values('date', ascending=True).reset_index(drop=True)
 
@@ -251,6 +251,7 @@ def check_boll_signal(df, monitor_type="buy"):     #默认监控买入信号
     df['std'] = df['close'].rolling(BOLL_WINDOW).std(ddof=1)
     df['upper'] = df['MD'] + 2 * df['std']
     df['lower'] = df['MD'] - 2 * df['std']
+
     # 最新两日数据
     today = df.iloc[-1]
     yesterday = df.iloc[-2]
