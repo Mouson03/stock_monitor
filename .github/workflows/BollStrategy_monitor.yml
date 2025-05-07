@@ -38,7 +38,7 @@ jobs:
     - name: 安装依赖
       run: |
         python -m pip install --upgrade pip
-        pip install akshare pandas requests
+        pip install akshare baostock pandas requests
 
     - name: 运行监控程序
       run: python BollStrategy_monitor.py
