@@ -273,8 +273,6 @@ def check_boll_signal(df, monitor_type="buy"):     #默认监控买入信号
     df['std'] = df['close'].rolling(BOLL_WINDOW).std(ddof=1)
     df['upper'] = df['MD'] + 2 * df['std']
     df['lower'] = df['MD'] - 2 * df['std']
-    print(f"low:{df['low']}\n")
-    print(f"lower:{df['lower']}")
     # 最新两日数据
     today = df.iloc[-1]
     yesterday = df.iloc[-2]
@@ -331,8 +329,8 @@ def main():
         print(f"代码 : {stock['code']}")      #用于查看程序运行进度
         df = get_stock_data(stock['code'], stock['market'])
         if df is not None:                                           #用于检查代码和数据是否正确对应
-            print(f"最新日期 : {df['date'].iloc[-1]}")
-            print(f"最新价 : {df['close'].iloc[-1]}\n")
+            #print(f"最新日期 : {df['date'].iloc[-1]}")
+            #print(f"最新价 : {df['close'].iloc[-1]}\n")
         signal = check_boll_signal(df, stock.get('monitor', 'buy'))  # 默认buy
         if signal:
             # 使用标准字段获取价格
