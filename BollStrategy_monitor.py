@@ -1,4 +1,10 @@
+#v3说明:
+# 更新的原因:解决v2的缺点.
+    # 解决方案:# (×接口用不了)1.原数据＋ak雪球实时   # (暂不考虑)2.将ak新浪实时的5000个股存起来,然后分别添加到原数据   3.用baostock的A股K线数据
+# 已实现的功能:
+# 缺点:
 import akshare as ak
+import baostock as bs  # 新增 Baostock 库
 import pandas as pd
 import requests
 import json
@@ -18,7 +24,8 @@ STOCKS = [
     #A股股票-新浪 : 需市场标识,股票代码可以在 ak.stock_zh_a_spot() 中获取
     #ETF-东财 ： 不需市场标识，ETF 代码可以在 ak.fund_etf_spot_em() 中获取或查看东财主页
     #A股指数-东财 ： 需市场标识， 支持：sz深交所, sh上交所, csi中证指数
-    #港股指数-东财 : 指数代码可以通过 ak.stock_hk_index_spot_em() 获取
+    #港股指数-东财 : 指数代码可以通过 ak.stock_hk_index_spot_em() 获取. 这个接口应该是开盘是才用.
+    #A股股票-bs : 代码格式示例sz.000999
 
     #标的-监控买入信号
     #同花顺-适合boll策略:
@@ -39,9 +46,6 @@ STOCKS = [
     {"code": "csi931071", "market": "A股指数-东财", "monitor": "buy"},  #人工智能
     {"code": "csi930641", "market": "A股指数-东财", "monitor": "buy"},  #中证中药
     {"code": "csi931024", "market": "A股指数-东财", "monitor": "buy"},  #港股通非银
-    {"code": "sh601728", "market": "A股股票-新浪", "monitor": "buy"},  #中国电信
-    {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  #中国移动
-    {"code": "sh600050", "market": "A股股票-新浪", "monitor": "buy"},  #中国联通
     {"code": "csi930716", "market": "A股指数-东财", "monitor": "buy"},  #CS物流
     {"code": "sz399967", "market": "A股指数-东财", "monitor": "buy"},  #中证军工
     {"code": "159697", "market": "ETF-东财", "monitor": "buy"},  #国证油气
@@ -134,42 +138,49 @@ STOCKS = [
     {"code": "159981", "market": "ETF-东财", "monitor": "buy"},  #能源化工ETF
 
     # 同花顺-个股
-    {"code": "sh601988", "market": "A股股票-新浪", "monitor": "buy"},  # 中国银行
-    {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行
-    {"code": "sh601288", "market": "A股股票-新浪", "monitor": "buy"},  # 农业银行
-    {"code": "sh601939", "market": "A股股票-新浪", "monitor": "buy"},  # 建设银行
-    {"code": "sh601728", "market": "A股股票-新浪", "monitor": "buy"},  # 中国电信
-    {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  # 中国移动
-    {"code": "sh600050", "market": "A股股票-新浪", "monitor": "buy"},  # 中国联通
-    {"code": "sh600900", "market": "A股股票-新浪", "monitor": "buy"},  # 长江电力
-    {"code": "sh601088", "market": "A股股票-新浪", "monitor": "buy"},  # 中国神华
-    {"code": "sh600036", "market": "A股股票-新浪", "monitor": "buy"},  # 招商银行
-    {"code": "sh601166", "market": "A股股票-新浪", "monitor": "buy"},  # 兴业银行
-    {"code": "sh601328", "market": "A股股票-新浪", "monitor": "buy"},  # 交通银行
-    {"code": "sh600919", "market": "A股股票-新浪", "monitor": "buy"},  # 江苏银行
-    {"code": "sh600000", "market": "A股股票-新浪", "monitor": "buy"},  # 浦发银行
-    {"code": "sh601899", "market": "A股股票-新浪", "monitor": "buy"},  # 紫金矿业
-    {"code": "sh600028", "market": "A股股票-新浪", "monitor": "buy"},  # 中国石化
-    {"code": "sz000333", "market": "A股股票-新浪", "monitor": "buy"},  # 美的集团
-    {"code": "sh601658", "market": "A股股票-新浪", "monitor": "buy"},  # 邮储银行
-    {"code": "sh601998", "market": "A股股票-新浪", "monitor": "buy"},  # 中信银行
-    {"code": "sh600276", "market": "A股股票-新浪", "monitor": "buy"},  # 恒瑞医药
-    {"code": "sh601816", "market": "A股股票-新浪", "monitor": "buy"},  # 京沪高铁
-    {"code": "sz002415", "market": "A股股票-新浪", "monitor": "buy"},  # 海康威视
-    {"code": "sz000651", "market": "A股股票-新浪", "monitor": "buy"},  # 格力电器
-    {"code": "sh601668", "market": "A股股票-新浪", "monitor": "buy"},  # 中国建筑
-    {"code": "sz002352", "market": "A股股票-新浪", "monitor": "buy"},  # 顺丰控股
-    {"code": "sh600887", "market": "A股股票-新浪", "monitor": "buy"},  # 伊利股份
-    {"code": "sh600406", "market": "A股股票-新浪", "monitor": "buy"},  # 国电南瑞
-    {"code": "sh600025", "market": "A股股票-新浪", "monitor": "buy"},  # 华能水电
-    {"code": "sh600031", "market": "A股股票-新浪", "monitor": "buy"},  # 三一重工
-    {"code": "sh600019", "market": "A股股票-新浪", "monitor": "buy"},  # 宝钢股份
-    {"code": "sz000429", "market": "A股股票-新浪", "monitor": "buy"},  # 粤高速A
-    {"code": "sh600350", "market": "A股股票-新浪", "monitor": "buy"},  # 山东高速
-    {"code": "sh601006", "market": "A股股票-新浪", "monitor": "buy"},  # 大秦铁路
-    {"code": "sh600377", "market": "A股股票-新浪", "monitor": "buy"},  # 宁沪高速
+    {"code": "sh601988", "market": "A股股票-bs", "monitor": "buy"},  # 中国银行
+    {"code": "sh601398", "market": "A股股票-bs", "monitor": "buy"},  # 工商银行
+    {"code": "sh601288", "market": "A股股票-bs", "monitor": "buy"},  # 农业银行
+    {"code": "sh601939", "market": "A股股票-bs", "monitor": "buy"},  # 建设银行
+    {"code": "sh601728", "market": "A股股票-bs", "monitor": "buy"},  # 中国电信
+    {"code": "sh600941", "market": "A股股票-bs", "monitor": "buy"},  # 中国移动
+    {"code": "sh600050", "market": "A股股票-bs", "monitor": "buy"},  # 中国联通
+    {"code": "sh600900", "market": "A股股票-bs", "monitor": "buy"},  # 长江电力
+    {"code": "sh601088", "market": "A股股票-bs", "monitor": "buy"},  # 中国神华
+    {"code": "sh600036", "market": "A股股票-bs", "monitor": "buy"},  # 招商银行
+    {"code": "sh601166", "market": "A股股票-bs", "monitor": "buy"},  # 兴业银行
+    {"code": "sh601328", "market": "A股股票-bs", "monitor": "buy"},  # 交通银行
+    {"code": "sh600919", "market": "A股股票-bs", "monitor": "buy"},  # 江苏银行
+    {"code": "sh600000", "market": "A股股票-bs", "monitor": "buy"},  # 浦发银行
+    {"code": "sh601899", "market": "A股股票-bs", "monitor": "buy"},  # 紫金矿业
+    {"code": "sh600028", "market": "A股股票-bs", "monitor": "buy"},  # 中国石化
+    {"code": "sz000333", "market": "A股股票-bs", "monitor": "buy"},  # 美的集团
+    {"code": "sh601658", "market": "A股股票-bs", "monitor": "buy"},  # 邮储银行
+    {"code": "sh601998", "market": "A股股票-bs", "monitor": "buy"},  # 中信银行
+    {"code": "sh600276", "market": "A股股票-bs", "monitor": "buy"},  # 恒瑞医药
+    {"code": "sh601816", "market": "A股股票-bs", "monitor": "buy"},  # 京沪高铁
+    {"code": "sz002415", "market": "A股股票-bs", "monitor": "buy"},  # 海康威视
+    {"code": "sz000651", "market": "A股股票-bs", "monitor": "buy"},  # 格力电器
+    {"code": "sh601668", "market": "A股股票-bs", "monitor": "buy"},  # 中国建筑
+    {"code": "sz002352", "market": "A股股票-bs", "monitor": "buy"},  # 顺丰控股
+    {"code": "sh600887", "market": "A股股票-bs", "monitor": "buy"},  # 伊利股份
+    {"code": "sh600406", "market": "A股股票-bs", "monitor": "buy"},  # 国电南瑞
+    {"code": "sh600025", "market": "A股股票-bs", "monitor": "buy"},  # 华能水电
+    {"code": "sh600031", "market": "A股股票-bs", "monitor": "buy"},  # 三一重工
+    {"code": "sh600019", "market": "A股股票-bs", "monitor": "buy"},  # 宝钢股份
+    {"code": "sz000429", "market": "A股股票-bs", "monitor": "buy"},  # 粤高速A
+    {"code": "sh600350", "market": "A股股票-bs", "monitor": "buy"},  # 山东高速
+    {"code": "sh601006", "market": "A股股票-bs", "monitor": "buy"},  # 大秦铁路
+    {"code": "sh600377", "market": "A股股票-bs", "monitor": "buy"},  # 宁沪高速
+    {"code": "sz000999", "market": "A股股票-bs", "monitor": "buy"},  # 华润三九   暂时
+    {"code": "sh600023", "market": "A股股票-bs", "monitor": "buy"},  # 浙能电力   暂时
+    {"code": "sh600015", "market": "A股股票-bs", "monitor": "buy"},  # 华夏银行   暂时
 
-    #标的-监控卖出信号
+    # 标的-监控卖出信号
+    {"code": "518850", "market": "ETF-东财", "monitor": "sell"},  # 黄金ETF华夏
+    {"code": "sz000999", "market": "A股股票-bs", "monitor": "sell"},  # 华润三九
+    {"code": "sh600023", "market": "A股股票-bs", "monitor": "sell"},  # 浙能电力
+    {"code": "sh600015", "market": "A股股票-bs", "monitor": "sell"},  # 华夏银行
 
 ]
 BOLL_WINDOW = 20
@@ -181,12 +192,14 @@ def get_stock_data(code, market):
     #通过不同数据源的列名
     # 各数据源列名配置
     COLUMN_CONFIG = {
-        "A股股票-新浪": {
+        "A股股票-bs": {
             'date': 'date',
             'open': 'open',
             'high': 'high',
             'low': 'low',
             'close': 'close'
+
+
         },
         "ETF-东财": {
             'date': '日期',
@@ -213,8 +226,17 @@ def get_stock_data(code, market):
 
     try:
         # 获取原始数据
-        if market == "A股股票-新浪":
-            raw_df = ak.stock_zh_a_daily(symbol=code , start_date="20250401" , adjust="qfq")
+        if market == "A股股票-bs":
+            bs_code = code[:2] + "." + code[2:]    # 转换code格式，例如 "sh601728" -> "sh.601728"
+            rs = bs.query_history_k_data_plus(bs_code , "date,open,high,low,close" , start_date="2025-04-01" , frequency="d", adjustflag="2")
+            data_list = []
+            while rs.error_code == '0' and rs.next():
+                data_list.append(rs.get_row_data())
+            raw_df = pd.DataFrame(data_list, columns=rs.fields)
+
+            price_cols = ['open', 'high', 'low', 'close']          # 将各列数据从object 转为 float64,才能和lower和upper比较
+            raw_df[price_cols] = raw_df[price_cols].apply(pd.to_numeric, errors='coerce')
+
         elif market == "ETF-东财":
             raw_df = ak.fund_etf_hist_em(symbol=code , start_date="20250401" , adjust="qfq")
         elif market == "A股指数-东财":
@@ -231,7 +253,7 @@ def get_stock_data(code, market):
         df.columns = ['date', 'open', 'high', 'low', 'close']
 
         # 处理数据
-        df = df.iloc[-(BOLL_WINDOW + 0):]  # 保留足够计算BOLL的数据
+        df = df.iloc[-(BOLL_WINDOW + 2):]  # 保留足够计算BOLL的数据
         df['date'] = pd.to_datetime(df['date'])  # 统一日期格式
         return df.sort_values('date', ascending=True).reset_index(drop=True)
 
@@ -251,7 +273,8 @@ def check_boll_signal(df, monitor_type="buy"):     #默认监控买入信号
     df['std'] = df['close'].rolling(BOLL_WINDOW).std(ddof=1)
     df['upper'] = df['MD'] + 2 * df['std']
     df['lower'] = df['MD'] - 2 * df['std']
-
+    print(f"low:{df['low']}\n")
+    print(f"lower:{df['lower']}")
     # 最新两日数据
     today = df.iloc[-1]
     yesterday = df.iloc[-2]
@@ -302,11 +325,13 @@ def send_dingtalk_message(content):
 
 
 def main():
+    bs.login()  #登录baostock系统
     signals = []
     for stock in STOCKS:
         print(f"代码 : {stock['code']}")      #用于查看程序运行进度
         df = get_stock_data(stock['code'], stock['market'])
         if df is not None:                                           #用于检查代码和数据是否正确对应
+            print(f"最新日期 : {df['date'].iloc[-1]}")
             print(f"最新价 : {df['close'].iloc[-1]}\n")
         signal = check_boll_signal(df, stock.get('monitor', 'buy'))  # 默认buy
         if signal:
@@ -318,7 +343,7 @@ def main():
 最新价 : {price:.2f}
 '''
             )
-
+    bs.logout()  #登出baostock系统
     if signals:
         result = send_dingtalk_message("\n".join(signals))
         if result.get('errcode') != 0:
