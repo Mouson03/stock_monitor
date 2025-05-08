@@ -220,7 +220,7 @@ def get_stock_data(code, market):
     try:
         # 获取原始数据
         if market == "A股股票-新浪":
-            raw_df = ak.stock_zh_a_daily(symbol=code , start_date="20250401" , end_date="20300101", adjust="qfq")
+            raw_df = ak.stock_zh_a_daily(symbol=code , start_date="20250401" , end_date="20250508", adjust="qfq")
             # 确保spot_df中有当前标的的数据并提取出来
             if spot_df is not None:
                 try:
@@ -239,10 +239,6 @@ def get_stock_data(code, market):
             # 合并数据
             if today_date not in raw_df['date'].astype(str).values:    #当A股股票-新浪的数据中没有当日数据,才合并数据
                 raw_df = pd.concat([raw_df, pd.DataFrame([today_kline])], ignore_index=True)
-                pd.set_option('display.max_rows', None)  # 显示所有行
-                pd.set_option('display.max_columns', None)  # 显示所有列
-                pd.set_option('display.width', None)  # 自动调整列宽
-                pd.set_option('display.max_colwidth', None)  # 显示完整列内容
 
         elif market == "ETF-东财":
             raw_df = ak.fund_etf_hist_em(symbol=code , start_date="20250401" , adjust="qfq")
