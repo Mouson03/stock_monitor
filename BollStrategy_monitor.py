@@ -1,6 +1,6 @@
-#v4说明:
+# v4说明:
 # 更新的原因:解决v2的缺点,即A股股票接口在盘中的数据是昨日的.而v3用bs接口,发现依然是昨日的.因此v4要用ak新浪实时接口.
-    # 解决方案:# (×接口用不了)1.原数据＋ak雪球实时   # 2.将ak新浪实时的5000个股存起来,然后分别添加到原数据   3.(×已在盘中验证,bs的数据也是昨日的)用baostock的A股K线数据
+# 解决方案:# (×接口用不了)1.原数据＋ak雪球实时   # 2.将ak新浪实时的5000个股存起来,然后分别添加到原数据   3.(×已在盘中验证,bs的数据也是昨日的)用baostock的A股K线数据
 # 已实现的功能:A股股票-新浪＋实时数据
 # 缺点:
 import akshare as ak
@@ -15,83 +15,82 @@ import base64
 import urllib.parse
 
 # ===== 用户配置区 =====
-DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"                                                 # 钉钉机器人加签密钥
-DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"       # 钉钉机器人webhooks链接
+DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"  # 钉钉机器人加签密钥
+DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"  # 钉钉机器人webhooks链接
 STOCKS = [
-    #数据源
-    #A股股票-新浪 : 需市场标识,股票代码可以在 ak.stock_zh_a_spot() 中获取
-    #ETF-东财 ： 不需市场标识，ETF 代码可以在 ak.fund_etf_spot_em() 中获取或查看东财主页
-    #A股指数-东财 ： 需市场标识， 支持：sz深交所, sh上交所, csi中证指数
-    #港股指数-东财 : 指数代码可以通过 ak.stock_hk_index_spot_em() 获取
+    # 数据源
+    # A股股票-新浪 : 需市场标识,股票代码可以在 ak.stock_zh_a_spot() 中获取
+    # ETF-东财 ： 不需市场标识，ETF 代码可以在 ak.fund_etf_spot_em() 中获取或查看东财主页
+    # A股指数-东财 ： 需市场标识， 支持：sz深交所, sh上交所, csi中证指数
+    # 港股指数-东财 : 指数代码可以通过 ak.stock_hk_index_spot_em() 获取
 
-    #标的-监控买入信号
-    #同花顺-适合boll策略:
+    # 标的-监控买入信号
+    # 同花顺-适合boll策略:
 
     {"code": "518850", "market": "ETF-东财", "monitor": "buy"},  # 黄金ETF华夏
     {"code": "161226", "market": "ETF-东财", "monitor": "buy"},  # 国投白银LOF
-    {"code": "sz399986", "market": "A股指数-东财", "monitor": "buy"},  #中证银行
+    {"code": "sz399986", "market": "A股指数-东财", "monitor": "buy"},  # 中证银行
     {"code": "sh000922", "market": "A股指数-东财", "monitor": "buy"},  # 中证红利
     {"code": "csiH30269", "market": "A股指数-东财", "monitor": "buy"},  # 红利低波
-    {"code": "sh000824", "market": "A股指数-东财", "monitor": "buy"},  #国企红利
-    {"code": "sh000825", "market": "A股指数-东财", "monitor": "buy"},  #央企红利
-    {"code": "csi930914", "market": "A股指数-东财", "monitor": "buy"},  #港股通高股息
-    {"code": "513520", "market": "ETF-东财", "monitor": "buy"},  #日经ETF
-    {"code": "159561", "market": "ETF-东财", "monitor": "buy"},  #德国ETF
-    {"code": "513080", "market": "ETF-东财", "monitor": "buy"},  #法国CAC40ETF
-    {"code": "164824", "market": "ETF-东财", "monitor": "buy"},  #印度基金LOF
-    {"code": "csiH30533", "market": "A股指数-东财", "monitor": "buy"},  #中国互联网50
-    {"code": "csiH30094", "market": "A股指数-东财", "monitor": "buy"},  #消费红利
-    {"code": "csi931071", "market": "A股指数-东财", "monitor": "buy"},  #人工智能
-    {"code": "csi930641", "market": "A股指数-东财", "monitor": "buy"},  #中证中药
-    {"code": "csi931024", "market": "A股指数-东财", "monitor": "buy"},  #港股通非银
-    {"code": "csi930716", "market": "A股指数-东财", "monitor": "buy"},  #CS物流
-    {"code": "sz399967", "market": "A股指数-东财", "monitor": "buy"},  #中证军工
-    {"code": "159697", "market": "ETF-东财", "monitor": "buy"},  #国证油气
-    {"code": "csi931790", "market": "A股指数-东财", "monitor": "buy"},  #中韩半导体
-    {"code": "513350", "market": "ETF-东财", "monitor": "buy"},  #标普油气ETF
-    {"code": "sz399995", "market": "A股指数-东财", "monitor": "buy"},  #基建工程
-    {"code": "csi931052", "market": "A股指数-东财", "monitor": "buy"},  #国信价值
-    {"code": "csi931008", "market": "A股指数-东财", "monitor": "buy"},  #汽车指数
-    {"code": "sh000819", "market": "A股指数-东财", "monitor": "buy"},  #有色金属
-    {"code": "csiH30199", "market": "A股指数-东财", "monitor": "buy"},  #电力指数
+    {"code": "sh000824", "market": "A股指数-东财", "monitor": "buy"},  # 国企红利
+    {"code": "sh000825", "market": "A股指数-东财", "monitor": "buy"},  # 央企红利
+    {"code": "csi930914", "market": "A股指数-东财", "monitor": "buy"},  # 港股通高股息
+    {"code": "513520", "market": "ETF-东财", "monitor": "buy"},  # 日经ETF
+    {"code": "159561", "market": "ETF-东财", "monitor": "buy"},  # 德国ETF
+    {"code": "513080", "market": "ETF-东财", "monitor": "buy"},  # 法国CAC40ETF
+    {"code": "164824", "market": "ETF-东财", "monitor": "buy"},  # 印度基金LOF
+    {"code": "csiH30533", "market": "A股指数-东财", "monitor": "buy"},  # 中国互联网50
+    {"code": "csiH30094", "market": "A股指数-东财", "monitor": "buy"},  # 消费红利
+    {"code": "csi931071", "market": "A股指数-东财", "monitor": "buy"},  # 人工智能
+    {"code": "csi930641", "market": "A股指数-东财", "monitor": "buy"},  # 中证中药
+    {"code": "csi931024", "market": "A股指数-东财", "monitor": "buy"},  # 港股通非银
+    {"code": "csi930716", "market": "A股指数-东财", "monitor": "buy"},  # CS物流
+    {"code": "sz399967", "market": "A股指数-东财", "monitor": "buy"},  # 中证军工
+    {"code": "159697", "market": "ETF-东财", "monitor": "buy"},  # 国证油气
+    {"code": "csi931790", "market": "A股指数-东财", "monitor": "buy"},  # 中韩半导体
+    {"code": "513350", "market": "ETF-东财", "monitor": "buy"},  # 标普油气ETF
+    {"code": "sz399995", "market": "A股指数-东财", "monitor": "buy"},  # 基建工程
+    {"code": "csi931052", "market": "A股指数-东财", "monitor": "buy"},  # 国信价值
+    {"code": "csi931008", "market": "A股指数-东财", "monitor": "buy"},  # 汽车指数
+    {"code": "sh000819", "market": "A股指数-东财", "monitor": "buy"},  # 有色金属
+    {"code": "csiH30199", "market": "A股指数-东财", "monitor": "buy"},  # 电力指数
 
-
-    #同花顺-全部行业指数（除去和 适合boll策略 重复的）
-    {"code": "csi930997", "market": "A股指数-东财", "monitor": "buy"},  #新能源车
-    {"code": "csi930633", "market": "A股指数-东财", "monitor": "buy"},  #中证旅游
+    # 同花顺-全部行业指数（除去和 适合boll策略 重复的）
+    {"code": "csi930997", "market": "A股指数-东财", "monitor": "buy"},  # 新能源车
+    {"code": "csi930633", "market": "A股指数-东财", "monitor": "buy"},  # 中证旅游
     {"code": "sh000812", "market": "A股指数-东财", "monitor": "buy"},  # 细分机械
-    {"code": "sh000813", "market": "A股指数-东财", "monitor": "buy"},  #细分化工
-    {"code": "csiH30202", "market": "A股指数-东财", "monitor": "buy"},  #软件指数
-    {"code": "sz399998", "market": "A股指数-东财", "monitor": "buy"},  #中证煤炭
-    {"code": "sz399989", "market": "A股指数-东财", "monitor": "buy"},  #中证医疗
-    {"code": "csi931152", "market": "A股指数-东财", "monitor": "buy"},  #CS创新药
-    {"code": "sz399441", "market": "A股指数-东财", "monitor": "buy"},  #生物医药
-    {"code": "csiH30217", "market": "A股指数-东财", "monitor": "buy"},  #医疗器械
-    {"code": "csi931494", "market": "A股指数-东财", "monitor": "buy"},  #消费电子
-    {"code": "sz399975", "market": "A股指数-东财", "monitor": "buy"},  #证券公司
-    {"code": "csiH30035", "market": "A股指数-东财", "monitor": "buy"},  #300非银
-    {"code": "csi930606", "market": "A股指数-东财", "monitor": "buy"},  #中证钢铁
-    {"code": "csiH30184", "market": "A股指数-东财", "monitor": "buy"},  #半导体
-    {"code": "csi931160", "market": "A股指数-东财", "monitor": "buy"},  #通信设备
-    {"code": "csi931235", "market": "A股指数-东财", "monitor": "buy"},  #中证电信
-    {"code": "csi931009", "market": "A股指数-东财", "monitor": "buy"},  #建筑材料
-    {"code": "csi930697", "market": "A股指数-东财", "monitor": "buy"},  #家用电器
-    {"code": "sh000949", "market": "A股指数-东财", "monitor": "buy"},  #中证农业
-    {"code": "csi931151", "market": "A股指数-东财", "monitor": "buy"},  #光伏产业
-    {"code": "sh000815", "market": "A股指数-东财", "monitor": "buy"},  #细分食品
-    {"code": "sz399971", "market": "A股指数-东财", "monitor": "buy"},  #中证传媒
-    {"code": "csi930901", "market": "A股指数-东财", "monitor": "buy"},  #动漫游戏
-    {"code": "csi930781", "market": "A股指数-东财", "monitor": "buy"},  #中证影视
+    {"code": "sh000813", "market": "A股指数-东财", "monitor": "buy"},  # 细分化工
+    {"code": "csiH30202", "market": "A股指数-东财", "monitor": "buy"},  # 软件指数
+    {"code": "sz399998", "market": "A股指数-东财", "monitor": "buy"},  # 中证煤炭
+    {"code": "sz399989", "market": "A股指数-东财", "monitor": "buy"},  # 中证医疗
+    {"code": "csi931152", "market": "A股指数-东财", "monitor": "buy"},  # CS创新药
+    {"code": "sz399441", "market": "A股指数-东财", "monitor": "buy"},  # 生物医药
+    {"code": "csiH30217", "market": "A股指数-东财", "monitor": "buy"},  # 医疗器械
+    {"code": "csi931494", "market": "A股指数-东财", "monitor": "buy"},  # 消费电子
+    {"code": "sz399975", "market": "A股指数-东财", "monitor": "buy"},  # 证券公司
+    {"code": "csiH30035", "market": "A股指数-东财", "monitor": "buy"},  # 300非银
+    {"code": "csi930606", "market": "A股指数-东财", "monitor": "buy"},  # 中证钢铁
+    {"code": "csiH30184", "market": "A股指数-东财", "monitor": "buy"},  # 半导体
+    {"code": "csi931160", "market": "A股指数-东财", "monitor": "buy"},  # 通信设备
+    {"code": "csi931235", "market": "A股指数-东财", "monitor": "buy"},  # 中证电信
+    {"code": "csi931009", "market": "A股指数-东财", "monitor": "buy"},  # 建筑材料
+    {"code": "csi930697", "market": "A股指数-东财", "monitor": "buy"},  # 家用电器
+    {"code": "sh000949", "market": "A股指数-东财", "monitor": "buy"},  # 中证农业
+    {"code": "csi931151", "market": "A股指数-东财", "monitor": "buy"},  # 光伏产业
+    {"code": "sh000815", "market": "A股指数-东财", "monitor": "buy"},  # 细分食品
+    {"code": "sz399971", "market": "A股指数-东财", "monitor": "buy"},  # 中证传媒
+    {"code": "csi930901", "market": "A股指数-东财", "monitor": "buy"},  # 动漫游戏
+    {"code": "csi930781", "market": "A股指数-东财", "monitor": "buy"},  # 中证影视
     {"code": "csiH30590", "market": "A股指数-东财", "monitor": "buy"},  # 机器人
-    {"code": "csi931456", "market": "A股指数-东财", "monitor": "buy"},  #中国教育
-    {"code": "sh000932", "market": "A股指数-东财", "monitor": "buy"},  #中证消费
-    {"code": "csi930604", "market": "A股指数-东财", "monitor": "buy"},  #中国互联网30
-    {"code": "csi931775", "market": "A股指数-东财", "monitor": "buy"},  #房地产
+    {"code": "csi931456", "market": "A股指数-东财", "monitor": "buy"},  # 中国教育
+    {"code": "sh000932", "market": "A股指数-东财", "monitor": "buy"},  # 中证消费
+    {"code": "csi930604", "market": "A股指数-东财", "monitor": "buy"},  # 中国互联网30
+    {"code": "csi931775", "market": "A股指数-东财", "monitor": "buy"},  # 房地产
 
-    #同花顺-全港股ETF
-    {"code": "HSI", "market": "港股指数-东财", "monitor": "buy"},  #恒生指数
-    {"code": "HSTECH", "market": "港股指数-东财", "monitor": "buy"},  #恒生科技指数
-    {"code": "HSCEI", "market": "港股指数-东财", "monitor": "buy"},  #国企指数
+    # 同花顺-全港股ETF
+    {"code": "HSI", "market": "港股指数-东财", "monitor": "buy"},  # 恒生指数
+    {"code": "HSTECH", "market": "港股指数-东财", "monitor": "buy"},  # 恒生科技指数
+    {"code": "HSCEI", "market": "港股指数-东财", "monitor": "buy"},  # 国企指数
     {"code": "513060", "market": "ETF-东财", "monitor": "buy"},  #
     {"code": "159792", "market": "ETF-东财", "monitor": "buy"},  #
     {"code": "513330", "market": "ETF-东财", "monitor": "buy"},  #
@@ -129,8 +128,8 @@ STOCKS = [
     {"code": "159519", "market": "ETF-东财", "monitor": "buy"},  #
     {"code": "513140", "market": "ETF-东财", "monitor": "buy"},  #
 
-    #同花顺-跨境商品ETF
-    {"code": "159981", "market": "ETF-东财", "monitor": "buy"},  #能源化工ETF
+    # 同花顺-跨境商品ETF
+    {"code": "159981", "market": "ETF-东财", "monitor": "buy"},  # 能源化工ETF
 
     # 同花顺-个股
     {"code": "sh601988", "market": "A股股票-新浪", "monitor": "buy"},  # 中国银行
@@ -171,8 +170,7 @@ STOCKS = [
     {"code": "sh600023", "market": "A股股票-新浪", "monitor": "buy"},  # 浙能电力   暂时
     {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行   暂时
 
-    #标的-监控卖出信号
-    {"code": "518850", "market": "ETF-东财", "monitor": "sell"},  # 黄金ETF华夏
+    # 标的-监控卖出信号
     {"code": "sz000999", "market": "A股股票-新浪", "monitor": "sell"},  # 华润三九
     {"code": "sh600023", "market": "A股股票-新浪", "monitor": "sell"},  # 浙能电力
     {"code": "sh600015", "market": "A股股票-新浪", "monitor": "sell"},  # 华夏银行
@@ -184,7 +182,7 @@ BOLL_WINDOW = 20
 # =====================
 
 def get_stock_data(code, market):
-    #通过不同数据源的列名
+    # 通过不同数据源的列名
     # 各数据源列名配置
     COLUMN_CONFIG = {
         "A股股票-新浪": {
@@ -220,11 +218,12 @@ def get_stock_data(code, market):
     try:
         # 获取原始数据
         if market == "A股股票-新浪":
-            raw_df = ak.stock_zh_a_daily(symbol=code , start_date="20250401" , end_date="20250508", adjust="qfq")
+            raw_df = ak.stock_zh_a_daily(symbol=code, start_date="20250401", adjust="qfq")
+
             # 确保spot_df中有当前标的的数据并提取出来
             if spot_df is not None:
                 try:
-                    spot_data = spot_df[spot_df['代码'] == code].iloc[0]           #将spot_df中的当前标的的数据赋值给spot_data
+                    spot_data = spot_df[spot_df['代码'] == code].iloc[0]  # 将spot_df中的当前标的的数据赋值给spot_data
                 except IndexError:
                     print(f"spot_df中无 A股股票{code} 的数据")
             # 构建当日K线
@@ -237,13 +236,13 @@ def get_stock_data(code, market):
                 'close': spot_data['最新价']
             }
             # 合并数据
-            if today_date not in raw_df['date'].astype(str).values:    #当A股股票-新浪的数据中没有当日数据,才合并数据
+            if today_date not in raw_df['date'].astype(str).values:  # 当A股股票-新浪的数据中没有当日数据,才合并数据
                 raw_df = pd.concat([raw_df, pd.DataFrame([today_kline])], ignore_index=True)
 
         elif market == "ETF-东财":
-            raw_df = ak.fund_etf_hist_em(symbol=code , start_date="20250401" , adjust="qfq")
+            raw_df = ak.fund_etf_hist_em(symbol=code, start_date="20250401", adjust="qfq")
         elif market == "A股指数-东财":
-            raw_df = ak.stock_zh_index_daily_em(symbol=code , start_date="20250401")
+            raw_df = ak.stock_zh_index_daily_em(symbol=code, start_date="20250401")
         elif market == "港股指数-东财":
             raw_df = ak.stock_hk_index_daily_em(symbol=code)
         else:
@@ -265,8 +264,7 @@ def get_stock_data(code, market):
         return None
 
 
-
-def check_boll_signal(df, monitor_type="buy"):     #默认监控买入信号
+def check_boll_signal(df, monitor_type="buy"):  # 默认监控买入信号
     """检查布林线信号（使用标准字段）"""
     if df is None or len(df) < 2:
         return None
@@ -288,7 +286,7 @@ def check_boll_signal(df, monitor_type="buy"):     #默认监控买入信号
         return 'BUY'
     elif monitor_type == "sell" and sell:
         return 'SELL'
-    return None           #不符合条件的信号被过滤
+    return None  # 不符合条件的信号被过滤
 
 
 def generate_ding_signature(secret):
@@ -326,16 +324,17 @@ def send_dingtalk_message(content):
 
 
 def main():
+    print("开始运行程序    时间:" + datetime.now().strftime("%Y-%m-%d %H:%M"))
     global spot_df
-    spot_df=None
-    spot_df = ak.stock_zh_a_spot()    #获取时数据-新浪并存为全局变量
+    spot_df = None
+    spot_df = ak.stock_zh_a_spot()  # 获取时数据-新浪并存为全局变量
     signals = []
     for stock in STOCKS:
-        print(f"代码 : {stock['code']}")      #用于查看程序运行进度
+        print(f"代码 : {stock['code']}")  # 用于查看程序运行进度
         df = get_stock_data(stock['code'], stock['market'])
-        if df is not None:                                           #用于检查代码和数据是否正确对应
-            print(f"最新日期 : {df['date'].iloc[-1].strftime('%Y-%m-%d')}")             #只打印日期(本来也只有日期)
-            #print(f"最新价 : {df['close'].iloc[-1]}\n")
+        if df is not None:  # 用于检查代码和数据是否正确对应
+            print(f"最新日期 : {df['date'].iloc[-1].strftime('%Y-%m-%d')}")  # 只打印日期(本来也只有日期)
+            # print(f"最新价 : {df['close'].iloc[-1]}\n")
         signal = check_boll_signal(df, stock.get('monitor', 'buy'))  # 默认buy
         if signal:
             # 使用标准字段获取价格
@@ -345,14 +344,14 @@ def main():
 交易信号 : {signal}
 最新价 : {price:.2f}
 '''
-            )
+                           )
 
     if signals:
         result = send_dingtalk_message("\n".join(signals))
         if result.get('errcode') != 0:
             print(f"检测到交易信号,钉钉发送失败：{result.get('errmsg')}")
         else:
-            print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "检测到交易信号,通知发送成功")
+            print("检测到交易信号,通知发送成功")
     else:
         print("未检测到交易信号")
 
