@@ -6,7 +6,7 @@
 import akshare as ak
 import pandas as pd
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 # 钉钉机器人加签所需
 import time
 import hmac
@@ -324,7 +324,7 @@ def send_dingtalk_message(content):
 
 
 def main():
-    print("开始运行程序    时间:" + datetime.now().strftime("%Y-%m-%d %H:%M"))
+    print("开始运行程序    时间:" + (datetime.now() + timedelta(hours=8).strftime("%Y-%m-%d %H:%M"))
     global spot_df
     spot_df = None
     spot_df = ak.stock_zh_a_spot()  # 获取时数据-新浪并存为全局变量
