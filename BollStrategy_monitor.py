@@ -87,9 +87,9 @@ STOCKS = [
     {"code": "csi931775", "market": "A股指数-东财", "monitor": "buy"},  # 房地产
 
     # 同花顺-全港股ETF
-    {"code": "HSI", "market": "港股指数-东财", "monitor": "buy"},  # 恒生指数
-    {"code": "HSTECH", "market": "港股指数-东财", "monitor": "buy"},  # 恒生科技指数
-    {"code": "HSCEI", "market": "港股指数-东财", "monitor": "buy"},  # 国企指数
+    #{"code": "HSI", "market": "港股指数-东财", "monitor": "buy"},  # 恒生指数
+    #{"code": "HSTECH", "market": "港股指数-东财", "monitor": "buy"},  # 恒生科技指数
+    #{"code": "HSCEI", "market": "港股指数-东财", "monitor": "buy"},  # 国企指数
     {"code": "513060", "market": "ETF-东财", "monitor": "buy"},  #
     {"code": "159792", "market": "ETF-东财", "monitor": "buy"},  #
     {"code": "513330", "market": "ETF-东财", "monitor": "buy"},  #
