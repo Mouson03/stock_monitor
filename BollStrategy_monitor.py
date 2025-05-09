@@ -26,7 +26,6 @@ STOCKS = [
 
     # 标的-监控买入信号
     # 同花顺-适合boll策略:
-
     {"code": "518850", "market": "ETF-东财", "monitor": "buy"},  # 黄金ETF华夏
     {"code": "161226", "market": "ETF-东财", "monitor": "buy"},  # 国投白银LOF
     {"code": "sz399986", "market": "A股指数-东财", "monitor": "buy"},  # 中证银行
@@ -166,14 +165,21 @@ STOCKS = [
     {"code": "sh600350", "market": "A股股票-新浪", "monitor": "buy"},  # 山东高速
     {"code": "sh601006", "market": "A股股票-新浪", "monitor": "buy"},  # 大秦铁路
     {"code": "sh600377", "market": "A股股票-新浪", "monitor": "buy"},  # 宁沪高速
-    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   暂时
-    {"code": "sh600023", "market": "A股股票-新浪", "monitor": "buy"},  # 浙能电力   暂时
-    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行   暂时
+    {"code": "sh600482", "market": "A股股票-新浪", "monitor": "buy"},  # 中国动力
+    {"code": "sz002179", "market": "A股股票-新浪", "monitor": "buy"},  # 中航光电
+    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   持有,暂时
+    {"code": "sh600023", "market": "A股股票-新浪", "monitor": "buy"},  # 浙能电力   持有,暂时
+    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行   持有,暂时
+    {"code": "sz000895", "market": "A股股票-新浪", "monitor": "buy"},  # 双汇发展   持有,暂时
 
     # 标的-监控卖出信号
+    # 同花顺-持仓股
     {"code": "sz000999", "market": "A股股票-新浪", "monitor": "sell"},  # 华润三九
     {"code": "sh600023", "market": "A股股票-新浪", "monitor": "sell"},  # 浙能电力
     {"code": "sh600015", "market": "A股股票-新浪", "monitor": "sell"},  # 华夏银行
+    {"code": "sz000895", "market": "A股股票-新浪", "monitor": "sell"},  # 双汇发展
+
+    #test
 
 ]
 BOLL_WINDOW = 20
@@ -334,7 +340,7 @@ def main():
         df = get_stock_data(stock['code'], stock['market'])
         if df is not None:  # 用于检查代码和数据是否正确对应
             print(f"最新日期 : {df['date'].iloc[-1].strftime('%Y-%m-%d')}")  # 只打印日期(本来也只有日期)
-            # print(f"最新价 : {df['close'].iloc[-1]}\n")
+            #print(f"最新价 : {df['close'].iloc[-1]}\n")
         signal = check_boll_signal(df, stock.get('monitor', 'buy'))  # 默认buy
         if signal:
             # 使用标准字段获取价格
