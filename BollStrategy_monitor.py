@@ -34,6 +34,7 @@ STOCKS = [
     {"code": "sh000824", "market": "A股指数-东财", "monitor": "buy"},  # 国企红利
     {"code": "sh000825", "market": "A股指数-东财", "monitor": "buy"},  # 央企红利
     {"code": "csi930914", "market": "A股指数-东财", "monitor": "buy"},  # 港股通高股息
+    {"code": "159509", "market": "ETF-东财", "monitor": "buy"},  # 纳指科技ETF 上穿下轨就买几份
     {"code": "513520", "market": "ETF-东财", "monitor": "buy"},  # 日经ETF
     {"code": "159561", "market": "ETF-东财", "monitor": "buy"},  # 德国ETF
     {"code": "513080", "market": "ETF-东财", "monitor": "buy"},  # 法国CAC40ETF
@@ -167,17 +168,30 @@ STOCKS = [
     {"code": "sh600377", "market": "A股股票-新浪", "monitor": "buy"},  # 宁沪高速
     {"code": "sh600482", "market": "A股股票-新浪", "monitor": "buy"},  # 中国动力
     {"code": "sz002179", "market": "A股股票-新浪", "monitor": "buy"},  # 中航光电
+
     {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   持有,暂时
-    {"code": "sh600023", "market": "A股股票-新浪", "monitor": "buy"},  # 浙能电力   持有,暂时
     {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行   持有,暂时
-    {"code": "sz000895", "market": "A股股票-新浪", "monitor": "buy"},  # 双汇发展   持有,暂时
+    {"code": "sz002818", "market": "A股股票-新浪", "monitor": "buy"},  # 富森美     持有,暂时
+    {"code": "sz000975", "market": "A股股票-新浪", "monitor": "buy"},  # 山金国际   持有,暂时
+    {"code": "sz000564", "market": "A股股票-新浪", "monitor": "buy"},  # 供销大集   持有,暂时
+    {"code": "sh600489", "market": "A股股票-新浪", "monitor": "buy"},  # 中金黄金   持有,暂时
+    {"code": "sh600153", "market": "A股股票-新浪", "monitor": "buy"},  # 建发股份   持有,暂时
+    {"code": "sz002739", "market": "A股股票-新浪", "monitor": "buy"},  # 万达电影   持有,暂时
+    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "buy"},  # 华孚时尚   持有,暂时
+    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "buy"},  # 圆通速递   持有,暂时
 
     # 标的-监控卖出信号
     # 同花顺-持仓股
-    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "sell"},  # 华润三九
-    {"code": "sh600023", "market": "A股股票-新浪", "monitor": "sell"},  # 浙能电力
-    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "sell"},  # 华夏银行
-    {"code": "sz000895", "market": "A股股票-新浪", "monitor": "sell"},  # 双汇发展
+    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "sell"},  # 华润三九   持有,暂时
+    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "sell"},  # 华夏银行   持有,暂时
+    {"code": "sz002818", "market": "A股股票-新浪", "monitor": "sell"},  # 富森美     持有,暂时
+    {"code": "sz000975", "market": "A股股票-新浪", "monitor": "sell"},  # 山金国际   持有,暂时
+    {"code": "sz000564", "market": "A股股票-新浪", "monitor": "sell"},  # 供销大集   持有,暂时
+    {"code": "sh600489", "market": "A股股票-新浪", "monitor": "sell"},  # 中金黄金   持有,暂时
+    {"code": "sh600153", "market": "A股股票-新浪", "monitor": "sell"},  # 建发股份   持有,暂时
+    {"code": "sz002739", "market": "A股股票-新浪", "monitor": "sell"},  # 万达电影   持有,暂时
+    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "sell"},  # 华孚时尚   持有,暂时
+    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "sell"},  # 圆通速递   持有,暂时
 
     #test
 
