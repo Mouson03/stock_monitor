@@ -168,6 +168,7 @@ STOCKS = [
     {"code": "sh600377", "market": "A股股票-新浪", "monitor": "buy"},  # 宁沪高速
     {"code": "sh600482", "market": "A股股票-新浪", "monitor": "buy"},  # 中国动力
     {"code": "sz002179", "market": "A股股票-新浪", "monitor": "buy"},  # 中航光电
+    {"code": "sh601111", "market": "A股股票-新浪", "monitor": "buy"},  # 中国国航
 
     {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   持有,暂时
     {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行   持有,暂时
