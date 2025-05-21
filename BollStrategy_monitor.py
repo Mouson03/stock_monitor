@@ -24,8 +24,8 @@ STOCKS = [
     # A股指数-东财 ： 需市场标识， 支持：sz深交所, sh上交所, csi中证指数
     # 港股指数-东财 : 指数代码可以通过 ak.stock_hk_index_spot_em() 获取
 
-    # 标的-监控买入信号
-    # 同花顺-适合boll策略:
+    # 一.监控买入信号
+    # 1.同花顺-适合boll策略:
     {"code": "518850", "market": "ETF-东财", "monitor": "buy"},  # 黄金ETF华夏
     {"code": "161226", "market": "ETF-东财", "monitor": "buy"},  # 国投白银LOF
     {"code": "sz399986", "market": "A股指数-东财", "monitor": "buy"},  # 中证银行
@@ -48,6 +48,7 @@ STOCKS = [
     {"code": "sz399967", "market": "A股指数-东财", "monitor": "buy"},  # 中证军工
     {"code": "159697", "market": "ETF-东财", "monitor": "buy"},  # 国证油气
     {"code": "csi931790", "market": "A股指数-东财", "monitor": "buy"},  # 中韩半导体
+    {"code": "159981", "market": "ETF-东财", "monitor": "buy"},  # 能源化工ETF
     {"code": "513350", "market": "ETF-东财", "monitor": "buy"},  # 标普油气ETF
     {"code": "sz399995", "market": "A股指数-东财", "monitor": "buy"},  # 基建工程
     {"code": "csi931052", "market": "A股指数-东财", "monitor": "buy"},  # 国信价值
@@ -128,10 +129,7 @@ STOCKS = [
     {"code": "159519", "market": "ETF-东财", "monitor": "buy"},  #
     {"code": "513140", "market": "ETF-东财", "monitor": "buy"},  #
 
-    # 同花顺-跨境商品ETF
-    {"code": "159981", "market": "ETF-东财", "monitor": "buy"},  # 能源化工ETF
-
-    # 同花顺-个股
+    # 2.同花顺-个股boll监控
     {"code": "sh601988", "market": "A股股票-新浪", "monitor": "buy"},  # 中国银行
     {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行
     {"code": "sh601288", "market": "A股股票-新浪", "monitor": "buy"},  # 农业银行
@@ -170,6 +168,66 @@ STOCKS = [
     {"code": "sz002179", "market": "A股股票-新浪", "monitor": "buy"},  # 中航光电
     {"code": "sh601111", "market": "A股股票-新浪", "monitor": "buy"},  # 中国国航
 
+    # 3.通达信-(250日最高价-最低价)/250日均价<0.3    2025.5.21选出,共31个,总市值降序    已验证代码,名称和对应关系    
+    {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  # 中国移动
+    {"code": "sh600900", "market": "A股股票-新浪", "monitor": "buy"},  # 长江电力
+    {"code": "sh601328", "market": "A股股票-新浪", "monitor": "buy"},  # 交通银行
+    {"code": "sh601658", "market": "A股股票-新浪", "monitor": "buy"},  # 邮储银行
+    {"code": "sh601006", "market": "A股股票-新浪", "monitor": "buy"},  # 大秦铁路
+    {"code": "sh601169", "market": "A股股票-新浪", "monitor": "buy"},  # 北京银行
+    {"code": "sh600905", "market": "A股股票-新浪", "monitor": "buy"},  # 三峡能源
+    {"code": "sh601868", "market": "A股股票-新浪", "monitor": "buy"},  # 中国能建
+    {"code": "sz001965", "market": "A股股票-新浪", "monitor": "buy"},  # 招商公路
+    {"code": "sh600115", "market": "A股股票-新浪", "monitor": "buy"},  # 中国东航
+    {"code": "sh601916", "market": "A股股票-新浪", "monitor": "buy"},  # 浙商银行
+    {"code": "sh601018", "market": "A股股票-新浪", "monitor": "buy"},  # 宁波港
+    {"code": "sh600642", "market": "A股股票-新浪", "monitor": "buy"},  # 申能股份
+    {"code": "sh600925", "market": "A股股票-新浪", "monitor": "buy"},  # 苏能股份
+    {"code": "sz000088", "market": "A股股票-新浪", "monitor": "buy"},  # 盐田港
+    {"code": "sh601228", "market": "A股股票-新浪", "monitor": "buy"},  # 广州港
+    {"code": "sh601158", "market": "A股股票-新浪", "monitor": "buy"},  # 重庆水务
+    {"code": "sh601128", "market": "A股股票-新浪", "monitor": "buy"},  # 常熟银行
+    {"code": "sz001213", "market": "A股股票-新浪", "monitor": "buy"},  # 中铁特货
+    {"code": "sz000089", "market": "A股股票-新浪", "monitor": "buy"},  # 深圳机场
+    {"code": "sh601827", "market": "A股股票-新浪", "monitor": "buy"},  # 三峰环境
+    {"code": "sh600116", "market": "A股股票-新浪", "monitor": "buy"},  # 三峡水利
+    {"code": "sh600821", "market": "A股股票-新浪", "monitor": "buy"},  # 金开新能
+    {"code": "sh600033", "market": "A股股票-新浪", "monitor": "buy"},  # 福建高速
+    {"code": "sh603053", "market": "A股股票-新浪", "monitor": "buy"},  # 成都燃气
+    {"code": "sh600035", "market": "A股股票-新浪", "monitor": "buy"},  # 楚天高速
+    {"code": "sh600897", "market": "A股股票-新浪", "monitor": "buy"},  # 厦门空港
+    {"code": "sh600681", "market": "A股股票-新浪", "monitor": "buy"},  # 百川能源
+    {"code": "sh603689", "market": "A股股票-新浪", "monitor": "buy"},  # 皖天然气
+    {"code": "sh603856", "market": "A股股票-新浪", "monitor": "buy"},  # 东宏股份
+    {"code": "sz002763", "market": "A股股票-新浪", "monitor": "buy"},  # 汇洁股份
+
+    # 4.通达信-250日标准差/250日均价<0.05    2025.5.21选出,共24个(42-18),总市值降序    已验证代码,名称和对应关系    与3(250幅低30)重复的18只股已删除,只在3中保留
+    {"code": "sh600018", "market": "A股股票-新浪", "monitor": "buy"},  # 上港集团
+    {"code": "sh601009", "market": "A股股票-新浪", "monitor": "buy"},  # 南京银行
+    {"code": "sh600009", "market": "A股股票-新浪", "monitor": "buy"},  # 上海机场
+    {"code": "sh600803", "market": "A股股票-新浪", "monitor": "buy"},  # 新奥股份
+    {"code": "sh601021", "market": "A股股票-新浪", "monitor": "buy"},  # 春秋航空
+    {"code": "sz002032", "market": "A股股票-新浪", "monitor": "buy"},  # 苏泊尔
+    {"code": "sz002252", "market": "A股股票-新浪", "monitor": "buy"},  # 上海莱士
+    {"code": "sz000513", "market": "A股股票-新浪", "monitor": "buy"},  # 丽珠集团
+    {"code": "sh601928", "market": "A股股票-新浪", "monitor": "buy"},  # 凤凰传媒
+    {"code": "sh600098", "market": "A股股票-新浪", "monitor": "buy"},  # 广州发展
+    {"code": "sh600004", "market": "A股股票-新浪", "monitor": "buy"},  # 白云机场
+    {"code": "sh600007", "market": "A股股票-新浪", "monitor": "buy"},  # 中国国贸
+    {"code": "sh601811", "market": "A股股票-新浪", "monitor": "buy"},  # 新华文轩
+    {"code": "sh601139", "market": "A股股票-新浪", "monitor": "buy"},  # 深圳燃气
+    {"code": "sh601326", "market": "A股股票-新浪", "monitor": "buy"},  # 秦港股份
+    {"code": "sh601952", "market": "A股股票-新浪", "monitor": "buy"},  # 苏垦农发
+    {"code": "sh603235", "market": "A股股票-新浪", "monitor": "buy"},  # 天新药业
+    {"code": "sh603281", "market": "A股股票-新浪", "monitor": "buy"},  # 江翰新材
+    {"code": "sh600054", "market": "A股股票-新浪", "monitor": "buy"},  # 黄山旅游
+    {"code": "sh600987", "market": "A股股票-新浪", "monitor": "buy"},  # 航民股份
+    {"code": "sh600138", "market": "A股股票-新浪", "monitor": "buy"},  # 中青旅
+    {"code": "sh601065", "market": "A股股票-新浪", "monitor": "buy"},  # 江盐集团
+    {"code": "sh601199", "market": "A股股票-新浪", "monitor": "buy"},  # 江南水务
+    {"code": "sz002033", "market": "A股股票-新浪", "monitor": "buy"},  # 丽江股份
+
+    # 5.同花顺-持仓股
     {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   持有
     {"code": "sz002818", "market": "A股股票-新浪", "monitor": "buy"},  # 富森美     持有
     {"code": "sz000975", "market": "A股股票-新浪", "monitor": "buy"},  # 山金国际   持有
@@ -183,7 +241,7 @@ STOCKS = [
     {"code": "sz000938", "market": "A股股票-新浪", "monitor": "buy"},  # 紫金股份   持有
     {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行   持有
 
-    # 标的-监控卖出信号
+    # 二.监控卖出信号
     # 同花顺-持仓股
     {"code": "sz000999", "market": "A股股票-新浪", "monitor": "sell"},  # 华润三九   持有,补仓
     {"code": "sz002818", "market": "A股股票-新浪", "monitor": "sell"},  # 富森美     持有,补仓
@@ -192,11 +250,13 @@ STOCKS = [
     {"code": "sh600489", "market": "A股股票-新浪", "monitor": "sell"},  # 中金黄金   持有,补仓
     {"code": "sz002739", "market": "A股股票-新浪", "monitor": "sell"},  # 万达电影   持有,补仓
     {"code": "sz002042", "market": "A股股票-新浪", "monitor": "sell"},  # 华孚时尚   持有,补仓
-    {"code": "sz002262", "market": "A股股票-新浪", "monitor": "sell"},  # 恩华药业    持有,补仓
+    {"code": "sz002262", "market": "A股股票-新浪", "monitor": "sell"},  # 恩华药业   持有,补仓
     {"code": "sh600233", "market": "A股股票-新浪", "monitor": "sell"},  # 圆通速递   持有,补仓
     {"code": "518800", "market": "ETF-东财", "monitor": "sell"},       # 黄金基金   长期持,上穿补
     {"code": "sz000938", "market": "A股股票-新浪", "monitor": "sell"},  # 紫金股份   持有
-    {"code": "sh601398", "market": "A股股票-新浪", "monitor": "sell"},  # 工商银行   持有
+    {"code": "sh601398", "market": "A股股票-新浪", "monitor": "sell"},  # 工商银行   长期持,上穿补
+
+
 
     #test
 
