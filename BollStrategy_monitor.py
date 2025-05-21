@@ -170,29 +170,33 @@ STOCKS = [
     {"code": "sz002179", "market": "A股股票-新浪", "monitor": "buy"},  # 中航光电
     {"code": "sh601111", "market": "A股股票-新浪", "monitor": "buy"},  # 中国国航
 
-    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   持有,暂时
-    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行   持有,暂时
-    {"code": "sz002818", "market": "A股股票-新浪", "monitor": "buy"},  # 富森美     持有,暂时
-    {"code": "sz000975", "market": "A股股票-新浪", "monitor": "buy"},  # 山金国际   持有,暂时
-    {"code": "sz000564", "market": "A股股票-新浪", "monitor": "buy"},  # 供销大集   持有,暂时
-    {"code": "sh600489", "market": "A股股票-新浪", "monitor": "buy"},  # 中金黄金   持有,暂时
-    {"code": "sh600153", "market": "A股股票-新浪", "monitor": "buy"},  # 建发股份   持有,暂时
-    {"code": "sz002739", "market": "A股股票-新浪", "monitor": "buy"},  # 万达电影   持有,暂时
-    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "buy"},  # 华孚时尚   持有,暂时
-    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "buy"},  # 圆通速递   持有,暂时
+    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   持有
+    {"code": "sz002818", "market": "A股股票-新浪", "monitor": "buy"},  # 富森美     持有
+    {"code": "sz000975", "market": "A股股票-新浪", "monitor": "buy"},  # 山金国际   持有
+    {"code": "sz000564", "market": "A股股票-新浪", "monitor": "buy"},  # 供销大集   持有
+    {"code": "sh600489", "market": "A股股票-新浪", "monitor": "buy"},  # 中金黄金   持有
+    {"code": "sz002739", "market": "A股股票-新浪", "monitor": "buy"},  # 万达电影   持有
+    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "buy"},  # 华孚时尚   持有
+    {"code": "sz002262", "market": "A股股票-新浪", "monitor": "buy"},  # 恩华药业   持有
+    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "buy"},  # 圆通速递   持有
+    {"code": "518800", "market": "ETF-东财", "monitor": "buy"},       # 黄金基金   持有
+    {"code": "sz000938", "market": "A股股票-新浪", "monitor": "buy"},  # 紫金股份   持有
+    {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行   持有
 
     # 标的-监控卖出信号
     # 同花顺-持仓股
-    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "sell"},  # 华润三九   持有,暂时
-    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "sell"},  # 华夏银行   持有,暂时
-    {"code": "sz002818", "market": "A股股票-新浪", "monitor": "sell"},  # 富森美     持有,暂时
-    {"code": "sz000975", "market": "A股股票-新浪", "monitor": "sell"},  # 山金国际   持有,暂时
-    {"code": "sz000564", "market": "A股股票-新浪", "monitor": "sell"},  # 供销大集   持有,暂时
-    {"code": "sh600489", "market": "A股股票-新浪", "monitor": "sell"},  # 中金黄金   持有,暂时
-    {"code": "sh600153", "market": "A股股票-新浪", "monitor": "sell"},  # 建发股份   持有,暂时
-    {"code": "sz002739", "market": "A股股票-新浪", "monitor": "sell"},  # 万达电影   持有,暂时
-    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "sell"},  # 华孚时尚   持有,暂时
-    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "sell"},  # 圆通速递   持有,暂时
+    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "sell"},  # 华润三九   持有,补仓
+    {"code": "sz002818", "market": "A股股票-新浪", "monitor": "sell"},  # 富森美     持有,补仓
+    {"code": "sz000975", "market": "A股股票-新浪", "monitor": "sell"},  # 山金国际   持有,补仓
+    {"code": "sz000564", "market": "A股股票-新浪", "monitor": "sell"},  # 供销大集   持有,补仓
+    {"code": "sh600489", "market": "A股股票-新浪", "monitor": "sell"},  # 中金黄金   持有,补仓
+    {"code": "sz002739", "market": "A股股票-新浪", "monitor": "sell"},  # 万达电影   持有,补仓
+    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "sell"},  # 华孚时尚   持有,补仓
+    {"code": "sz002262", "market": "A股股票-新浪", "monitor": "sell"},  # 恩华药业    持有,补仓
+    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "sell"},  # 圆通速递   持有,补仓
+    {"code": "518800", "market": "ETF-东财", "monitor": "sell"},       # 黄金基金   长期持,上穿补
+    {"code": "sz000938", "market": "A股股票-新浪", "monitor": "sell"},  # 紫金股份   持有
+    {"code": "sh601398", "market": "A股股票-新浪", "monitor": "sell"},  # 工商银行   持有
 
     #test
 
