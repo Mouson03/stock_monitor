@@ -168,7 +168,7 @@ STOCKS = [
     {"code": "sz002179", "market": "A股股票-新浪", "monitor": "buy"},  # 中航光电
     {"code": "sh601111", "market": "A股股票-新浪", "monitor": "buy"},  # 中国国航
 
-    # 3.通达信-(250日最高价-最低价)/250日均价<0.3    2025.5.21选出,共31个,总市值降序    已验证代码,名称和对应关系    
+    # 3.通达信-250波幅小30,即(250日最高价-最低价)/250日均价<0.3    2025.5.21选出,共31个,总市值降序    已验证代码,名称和对应关系
     {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  # 中国移动
     {"code": "sh600900", "market": "A股股票-新浪", "monitor": "buy"},  # 长江电力
     {"code": "sh601328", "market": "A股股票-新浪", "monitor": "buy"},  # 交通银行
@@ -201,7 +201,7 @@ STOCKS = [
     {"code": "sh603856", "market": "A股股票-新浪", "monitor": "buy"},  # 东宏股份
     {"code": "sz002763", "market": "A股股票-新浪", "monitor": "buy"},  # 汇洁股份
 
-    # 4.通达信-250日标准差/250日均价<0.05    2025.5.21选出,共24个(42-18),总市值降序    已验证代码,名称和对应关系    与3(250幅低30)重复的18只股已删除,只在3中保留
+    # 4.通达信-250标准差小5,即250日标准差/250日均价<0.05    2025.5.21选出,共24个(42-18),总市值降序    已验证代码,名称和对应关系    与3(250幅低30)重复的18只股已删除,只在3中保留
     {"code": "sh600018", "market": "A股股票-新浪", "monitor": "buy"},  # 上港集团
     {"code": "sh601009", "market": "A股股票-新浪", "monitor": "buy"},  # 南京银行
     {"code": "sh600009", "market": "A股股票-新浪", "monitor": "buy"},  # 上海机场
@@ -227,19 +227,285 @@ STOCKS = [
     {"code": "sh601199", "market": "A股股票-新浪", "monitor": "buy"},  # 江南水务
     {"code": "sz002033", "market": "A股股票-新浪", "monitor": "buy"},  # 丽江股份
 
-    # 5.同花顺-持仓股
+    # 5.通达信-250波幅30标5   共1个（18-17），与3，4重复的没添加
+    {"code": "sz001213", "market": "A股股票-新浪", "monitor": "buy"},  # 中特特货
+
+    # 6.通达信-120波幅小20   共154个，未筛选与前面面重复的，懒得选了
+    {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行
+    {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  # 中国移动
+    {"code": "sh601939", "market": "A股股票-新浪", "monitor": "buy"},  # 建设银行
+    {"code": "sh600519", "market": "A股股票-新浪", "monitor": "buy"},  # 贵州茅台
+    {"code": "sh601288", "market": "A股股票-新浪", "monitor": "buy"},  # 农业银行
+    {"code": "sh601988", "market": "A股股票-新浪", "monitor": "buy"},  # 中国银行
+    {"code": "sh601318", "market": "A股股票-新浪", "monitor": "buy"},  # 中国平安
+    {"code": "sh600900", "market": "A股股票-新浪", "monitor": "buy"},  # 长江电力
+    {"code": "sz000333", "market": "A股股票-新浪", "monitor": "buy"},  # 美的集团
+    {"code": "sh601328", "market": "A股股票-新浪", "monitor": "buy"},  # 交通银行
+    {"code": "sh601658", "market": "A股股票-新浪", "monitor": "buy"},  # 邮储银行
+    {"code": "sh601998", "market": "A股股票-新浪", "monitor": "buy"},  # 中信银行
+    {"code": "sh601816", "market": "A股股票-新浪", "monitor": "buy"},  # 京沪高铁
+    {"code": "sz000651", "market": "A股股票-新浪", "monitor": "buy"},  # 格力电器
+    {"code": "sh601818", "market": "A股股票-新浪", "monitor": "buy"},  # 光大银行
+    {"code": "sz002352", "market": "A股股票-新浪", "monitor": "buy"},  # 顺丰控股
+    {"code": "sz000001", "market": "A股股票-新浪", "monitor": "buy"},  # 平安银行
+    {"code": "sh601985", "market": "A股股票-新浪", "monitor": "buy"},  # 中国核电
+    {"code": "sh600887", "market": "A股股票-新浪", "monitor": "buy"},  # 伊利股份
+    {"code": "sh600016", "market": "A股股票-新浪", "monitor": "buy"},  # 民生银行
+    {"code": "sh600025", "market": "A股股票-新浪", "monitor": "buy"},  # 华能水电
+    {"code": "sz002142", "market": "A股股票-新浪", "monitor": "buy"},  # 宁波银行
+    {"code": "sh600019", "market": "A股股票-新浪", "monitor": "buy"},  # 宝钢股份
+    {"code": "sh600660", "market": "A股股票-新浪", "monitor": "buy"},  # 福耀玻璃
+    {"code": "sh600018", "market": "A股股票-新浪", "monitor": "buy"},  # 上港集团
+    {"code": "sh601006", "market": "A股股票-新浪", "monitor": "buy"},  # 大秦铁路
+    {"code": "sh601169", "market": "A股股票-新浪", "monitor": "buy"},  # 北京银行
+    {"code": "sh600585", "market": "A股股票-新浪", "monitor": "buy"},  # 海螺水泥
+    {"code": "sh600905", "market": "A股股票-新浪", "monitor": "buy"},  # 三峡能源
+    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行
+    {"code": "sh601009", "market": "A股股票-新浪", "monitor": "buy"},  # 南京银行
+    {"code": "sh600346", "market": "A股股票-新浪", "monitor": "buy"},  # 恒力石化
+    {"code": "sz002027", "market": "A股股票-新浪", "monitor": "buy"},  # 分众传媒
+    {"code": "sh600926", "market": "A股股票-新浪", "monitor": "buy"},  # 杭州银行
+    {"code": "sz000538", "market": "A股股票-新浪", "monitor": "buy"},  # 云南白药
+    {"code": "sh603195", "market": "A股股票-新浪", "monitor": "buy"},  # 公牛集团
+    {"code": "sh601868", "market": "A股股票-新浪", "monitor": "buy"},  # 中国能建
+    {"code": "sz000895", "market": "A股股票-新浪", "monitor": "buy"},  # 双汇发展
+    {"code": "sh601916", "market": "A股股票-新浪", "monitor": "buy"},  # 浙商银行
+    {"code": "sh601825", "market": "A股股票-新浪", "monitor": "buy"},  # 沪农商行
+    {"code": "sh600795", "market": "A股股票-新浪", "monitor": "buy"},  # 国电电力
+    {"code": "sh600377", "market": "A股股票-新浪", "monitor": "buy"},  # 宁沪高速
+    {"code": "sh600023", "market": "A股股票-新浪", "monitor": "buy"},  # 浙能电力
+    {"code": "sz002001", "market": "A股股票-新浪", "monitor": "buy"},  # 新和成
+    {"code": "sh600196", "market": "A股股票-新浪", "monitor": "buy"},  # 复星医药
+    {"code": "sh600741", "market": "A股股票-新浪", "monitor": "buy"},  # 华域汽车
+    {"code": "sz002028", "market": "A股股票-新浪", "monitor": "buy"},  # 思源电气
+    {"code": "sz000708", "market": "A股股票-新浪", "monitor": "buy"},  # 中信特钢
+    {"code": "sh600875", "market": "A股股票-新浪", "monitor": "buy"},  # 东方电气
+    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九
+    {"code": "sz001872", "market": "A股股票-新浪", "monitor": "buy"},  # 招商港口
+    {"code": "sh600236", "market": "A股股票-新浪", "monitor": "buy"},  # 桂冠电力
+    {"code": "sz002032", "market": "A股股票-新浪", "monitor": "buy"},  # 苏泊尔
+    {"code": "sz002252", "market": "A股股票-新浪", "monitor": "buy"},  # 上海莱士
+    {"code": "sh600642", "market": "A股股票-新浪", "monitor": "buy"},  # 申能股份
+    {"code": "sh600332", "market": "A股股票-新浪", "monitor": "buy"},  # 白云山
+    {"code": "sh600426", "market": "A股股票-新浪", "monitor": "buy"},  # 华鲁恒升
+    {"code": "sh600096", "market": "A股股票-新浪", "monitor": "buy"},  # XD云天化
+    {"code": "sz002601", "market": "A股股票-新浪", "monitor": "buy"},  # 龙佰集团
+    {"code": "sz002078", "market": "A股股票-新浪", "monitor": "buy"},  # 太阳纸业
+    {"code": "sh601577", "market": "A股股票-新浪", "monitor": "buy"},  # 长沙银行
+    {"code": "sz002966", "market": "A股股票-新浪", "monitor": "buy"},  # 苏州银行
+    {"code": "sh601061", "market": "A股股票-新浪", "monitor": "buy"},  # 中信金属
+    {"code": "sz000423", "market": "A股股票-新浪", "monitor": "buy"},  # 东阿阿胶
+    {"code": "sh601598", "market": "A股股票-新浪", "monitor": "buy"},  # 中国外运
+    {"code": "sh600925", "market": "A股股票-新浪", "monitor": "buy"},  # 苏能股份
+    {"code": "sz001286", "market": "A股股票-新浪", "monitor": "buy"},  # 陕西能源
+    {"code": "sh600956", "market": "A股股票-新浪", "monitor": "buy"},  # 新天绿能
+    {"code": "sz000513", "market": "A股股票-新浪", "monitor": "buy"},  # 丽珠集团
+    {"code": "sh600298", "market": "A股股票-新浪", "monitor": "buy"},  # 安琪酵母
+    {"code": "sh600995", "market": "A股股票-新浪", "monitor": "buy"},  # XD南网储
+    {"code": "sz000027", "market": "A股股票-新浪", "monitor": "buy"},  # 深圳能源
+    {"code": "sz000883", "market": "A股股票-新浪", "monitor": "buy"},  # 湖北能源
+    {"code": "sh601928", "market": "A股股票-新浪", "monitor": "buy"},  # 凤凰传媒
+    {"code": "sz002007", "market": "A股股票-新浪", "monitor": "buy"},  # 华兰生物
+    {"code": "sh600153", "market": "A股股票-新浪", "monitor": "buy"},  # 建发股份
+    {"code": "sz002608", "market": "A股股票-新浪", "monitor": "buy"},  # 江苏国信
+    {"code": "sh600704", "market": "A股股票-新浪", "monitor": "buy"},  # 物产中大
+    {"code": "sh600483", "market": "A股股票-新浪", "monitor": "buy"},  # 福能股份
+    {"code": "sh600282", "market": "A股股票-新浪", "monitor": "buy"},  # 南钢股份
+    {"code": "sh600582", "market": "A股股票-新浪", "monitor": "buy"},  # 天地科技
+    {"code": "sh600021", "market": "A股股票-新浪", "monitor": "buy"},  # 上海电力
+    {"code": "sh601000", "market": "A股股票-新浪", "monitor": "buy"},  # 唐山港
+    {"code": "sh600329", "market": "A股股票-新浪", "monitor": "buy"},  # 达仁堂
+    {"code": "sh600535", "market": "A股股票-新浪", "monitor": "buy"},  # 天士力
+    {"code": "sz002318", "market": "A股股票-新浪", "monitor": "buy"},  # 久立特材
+    {"code": "sh601158", "market": "A股股票-新浪", "monitor": "buy"},  # 重庆水务
+    {"code": "sh601128", "market": "A股股票-新浪", "monitor": "buy"},  # 常熟银行
+    {"code": "sh600008", "market": "A股股票-新浪", "monitor": "buy"},  # 首创环保
+    {"code": "sh600098", "market": "A股股票-新浪", "monitor": "buy"},  # 广州发展
+    {"code": "sz000539", "market": "A股股票-新浪", "monitor": "buy"},  # 粤电力A
+    {"code": "sh600004", "market": "A股股票-新浪", "monitor": "buy"},  # 白云机场
+    {"code": "sh601997", "market": "A股股票-新浪", "monitor": "buy"},  # 贵阳银行
+    {"code": "sz000703", "market": "A股股票-新浪", "monitor": "buy"},  # 恒逸石化
+    {"code": "sh600007", "market": "A股股票-新浪", "monitor": "buy"},  # 中国国贸
+    {"code": "sz000598", "market": "A股股票-新浪", "monitor": "buy"},  # 兴蓉环境
+    {"code": "sz000830", "market": "A股股票-新浪", "monitor": "buy"},  # 鲁西化工
+    {"code": "sh600737", "market": "A股股票-新浪", "monitor": "buy"},  # 中粮糖业
+    {"code": "sh600380", "market": "A股股票-新浪", "monitor": "buy"},  # 健康元
+    {"code": "sz000875", "market": "A股股票-新浪", "monitor": "buy"},  # 吉电股份
+    {"code": "sh601811", "market": "A股股票-新浪", "monitor": "buy"},  # 新华文轩
+    {"code": "sz002958", "market": "A股股票-新浪", "monitor": "buy"},  # 青农商行
+    {"code": "sh601326", "market": "A股股票-新浪", "monitor": "buy"},  # 秦港股份
+    {"code": "sz001213", "market": "A股股票-新浪", "monitor": "buy"},  # 中铁特货
+    {"code": "sz003035", "market": "A股股票-新浪", "monitor": "buy"},  # 南网能源
+    {"code": "sh600528", "market": "A股股票-新浪", "monitor": "buy"},  # 中铁工业
+    {"code": "sh601187", "market": "A股股票-新浪", "monitor": "buy"},  # 厦门银行
+    {"code": "sz000869", "market": "A股股票-新浪", "monitor": "buy"},  # 张裕A
+    {"code": "sh600750", "market": "A股股票-新浪", "monitor": "buy"},  # 江中药业
+    {"code": "sz000089", "market": "A股股票-新浪", "monitor": "buy"},  # 深圳机场
+    {"code": "sh600916", "market": "A股股票-新浪", "monitor": "buy"},  # 中国黄金
+    {"code": "sh601827", "market": "A股股票-新浪", "monitor": "buy"},  # 三峰环境
+    {"code": "sh600755", "market": "A股股票-新浪", "monitor": "buy"},  # 厦门国贸
+    {"code": "sh600116", "market": "A股股票-新浪", "monitor": "buy"},  # 三峡水利
+    {"code": "sh600285", "market": "A股股票-新浪", "monitor": "buy"},  # 羚锐制药
+    {"code": "sh600908", "market": "A股股票-新浪", "monitor": "buy"},  # 无锡银行
+    {"code": "sz000685", "market": "A股股票-新浪", "monitor": "buy"},  # 中山公用
+    {"code": "sh600461", "market": "A股股票-新浪", "monitor": "buy"},  # 洪城环境
+    {"code": "sh600639", "market": "A股股票-新浪", "monitor": "buy"},  # 浦东金桥
+    {"code": "sh600211", "market": "A股股票-新浪", "monitor": "buy"},  # 西藏药业
+    {"code": "sh600572", "market": "A股股票-新浪", "monitor": "buy"},  # 康恩贝
+    {"code": "sh605507", "market": "A股股票-新浪", "monitor": "buy"},  # 国邦医药
+    {"code": "sz002807", "market": "A股股票-新浪", "monitor": "buy"},  # 江阴银行
+    {"code": "sh601200", "market": "A股股票-新浪", "monitor": "buy"},  # 上海环境
+    {"code": "sz002053", "market": "A股股票-新浪", "monitor": "buy"},  # 云南能投
+    {"code": "sz002839", "market": "A股股票-新浪", "monitor": "buy"},  # 张家港行
+    {"code": "sh603323", "market": "A股股票-新浪", "monitor": "buy"},  # 苏农银行
+    {"code": "sh601860", "market": "A股股票-新浪", "monitor": "buy"},  # 紫金银行
+    {"code": "sh600033", "market": "A股股票-新浪", "monitor": "buy"},  # 福建高速
+    {"code": "sz002233", "market": "A股股票-新浪", "monitor": "buy"},  # 塔牌集团
+    {"code": "sh600874", "market": "A股股票-新浪", "monitor": "buy"},  # 创业环保
+    {"code": "sz002100", "market": "A股股票-新浪", "monitor": "buy"},  # 天康生物
+    {"code": "sh605116", "market": "A股股票-新浪", "monitor": "buy"},  # 奥锐特
+    {"code": "sh603053", "market": "A股股票-新浪", "monitor": "buy"},  # 成都燃气
+    {"code": "sh600054", "market": "A股股票-新浪", "monitor": "buy"},  # 黄山旅游
+    {"code": "sz000544", "market": "A股股票-新浪", "monitor": "buy"},  # 中原环保
+    {"code": "sh600502", "market": "A股股票-新浪", "monitor": "buy"},  # 安徽建工
+    {"code": "sh601089", "market": "A股股票-新浪", "monitor": "buy"},  # 福元医药
+    {"code": "sz000650", "market": "A股股票-新浪", "monitor": "buy"},  # 仁和药业
+    {"code": "sh603299", "market": "A股股票-新浪", "monitor": "buy"},  # 苏盐井神
+    {"code": "sh600987", "market": "A股股票-新浪", "monitor": "buy"},  # 航民股份
+    {"code": "sh600035", "market": "A股股票-新浪", "monitor": "buy"},  # 楚天高速
+    {"code": "sh605368", "market": "A股股票-新浪", "monitor": "buy"},  # 蓝天燃气
+    {"code": "sh603071", "market": "A股股票-新浪", "monitor": "buy"},  # 物产环能
+    {"code": "sh603368", "market": "A股股票-新浪", "monitor": "buy"},  # 柳药集团
+    {"code": "sh603367", "market": "A股股票-新浪", "monitor": "buy"},  # 辰欣药业
+    {"code": "sh600976", "market": "A股股票-新浪", "monitor": "buy"},  # 健民集团
+    {"code": "sh600897", "market": "A股股票-新浪", "monitor": "buy"},  # 厦门空港
+    {"code": "sz002088", "market": "A股股票-新浪", "monitor": "buy"},  # 鲁阳节能
+    {"code": "sh600251", "market": "A股股票-新浪", "monitor": "buy"},  # 冠农股份
+    {"code": "sh601065", "market": "A股股票-新浪", "monitor": "buy"},  # 江盐集团
+    {"code": "sh603689", "market": "A股股票-新浪", "monitor": "buy"},  # 皖天然气
+    {"code": "sh603167", "market": "A股股票-新浪", "monitor": "buy"},  # 渤海轮渡
+    {"code": "sh600573", "market": "A股股票-新浪", "monitor": "buy"},  # 惠泉啤酒
+
+    # 7.通达信-120标准差小3.5   共103个，未筛选与前面面重复的，懒得选了
+    {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  # 中国移动
+    {"code": "sh601318", "market": "A股股票-新浪", "monitor": "buy"},  # 中国平安
+    {"code": "sh600900", "market": "A股股票-新浪", "monitor": "buy"},  # 长江电力
+    {"code": "sz000333", "market": "A股股票-新浪", "monitor": "buy"},  # 美的集团
+    {"code": "sh601328", "market": "A股股票-新浪", "monitor": "buy"},  # 交通银行
+    {"code": "sh601658", "market": "A股股票-新浪", "monitor": "buy"},  # 邮储银行
+    {"code": "sh601818", "market": "A股股票-新浪", "monitor": "buy"},  # 光大银行
+    {"code": "sz000001", "market": "A股股票-新浪", "monitor": "buy"},  # 平安银行
+    {"code": "sh601985", "market": "A股股票-新浪", "monitor": "buy"},  # 中国核电
+    {"code": "sh600887", "market": "A股股票-新浪", "monitor": "buy"},  # 伊利股份
+    {"code": "sh600016", "market": "A股股票-新浪", "monitor": "buy"},  # 民生银行
+    {"code": "sz002142", "market": "A股股票-新浪", "monitor": "buy"},  # 宁波银行
+    {"code": "sh600018", "market": "A股股票-新浪", "monitor": "buy"},  # 上港集团
+    {"code": "sh601006", "market": "A股股票-新浪", "monitor": "buy"},  # 大秦铁路
+    {"code": "sh601169", "market": "A股股票-新浪", "monitor": "buy"},  # 北京银行
+    {"code": "sh600585", "market": "A股股票-新浪", "monitor": "buy"},  # 海螺水泥
+    {"code": "sz000776", "market": "A股股票-新浪", "monitor": "buy"},  # 广发证券
+    {"code": "sh600905", "market": "A股股票-新浪", "monitor": "buy"},  # 三峡能源
+    {"code": "sh600015", "market": "A股股票-新浪", "monitor": "buy"},  # 华夏银行
+    {"code": "sh601009", "market": "A股股票-新浪", "monitor": "buy"},  # 南京银行
+    {"code": "sh600346", "market": "A股股票-新浪", "monitor": "buy"},  # 恒力石化
+    {"code": "sh600926", "market": "A股股票-新浪", "monitor": "buy"},  # 杭州银行
+    {"code": "sz000538", "market": "A股股票-新浪", "monitor": "buy"},  # 云南白药
+    {"code": "sh603195", "market": "A股股票-新浪", "monitor": "buy"},  # 公牛集团
+    {"code": "sh601868", "market": "A股股票-新浪", "monitor": "buy"},  # 中国能建
+    {"code": "sh601825", "market": "A股股票-新浪", "monitor": "buy"},  # 沪农商行
+    {"code": "sh601916", "market": "A股股票-新浪", "monitor": "buy"},  # 浙商银行
+    {"code": "sz000895", "market": "A股股票-新浪", "monitor": "buy"},  # 双汇发展
+    {"code": "sz000792", "market": "A股股票-新浪", "monitor": "buy"},  # 盐湖股份
+    {"code": "sh600362", "market": "A股股票-新浪", "monitor": "buy"},  # 江西铜业
+    {"code": "sh600023", "market": "A股股票-新浪", "monitor": "buy"},  # 浙能电力
+    {"code": "sz002001", "market": "A股股票-新浪", "monitor": "buy"},  # 新和成
+    {"code": "sh600803", "market": "A股股票-新浪", "monitor": "buy"},  # 新奥股份
+    {"code": "sz002028", "market": "A股股票-新浪", "monitor": "buy"},  # 思源电气
+    {"code": "sh600875", "market": "A股股票-新浪", "monitor": "buy"},  # 东方电气
+    {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九
+    {"code": "sz000786", "market": "A股股票-新浪", "monitor": "buy"},  # 北新建材
+    {"code": "sh600642", "market": "A股股票-新浪", "monitor": "buy"},  # 申能股份
+    {"code": "sz002078", "market": "A股股票-新浪", "monitor": "buy"},  # 太阳纸业
+    {"code": "sz002966", "market": "A股股票-新浪", "monitor": "buy"},  # 苏州银行
+    {"code": "sz002223", "market": "A股股票-新浪", "monitor": "buy"},  # 鱼跃医疗
+    {"code": "sh601598", "market": "A股股票-新浪", "monitor": "buy"},  # 中国外运
+    {"code": "sh600925", "market": "A股股票-新浪", "monitor": "buy"},  # 苏能股份
+    {"code": "sh600685", "market": "A股股票-新浪", "monitor": "buy"},  # 中船防务
+    {"code": "sz001286", "market": "A股股票-新浪", "monitor": "buy"},  # 陕西能源
+    {"code": "sh601958", "market": "A股股票-新浪", "monitor": "buy"},  # 金钥股份
+    {"code": "sz000513", "market": "A股股票-新浪", "monitor": "buy"},  # 丽珠集团
+    {"code": "sh600298", "market": "A股股票-新浪", "monitor": "buy"},  # 安琪酵母
+    {"code": "sh600995", "market": "A股股票-新浪", "monitor": "buy"},  # XD南网储
+    {"code": "sz000027", "market": "A股股票-新浪", "monitor": "buy"},  # 深圳能源
+    {"code": "sz000883", "market": "A股股票-新浪", "monitor": "buy"},  # 湖北能源
+    {"code": "sz002007", "market": "A股股票-新浪", "monitor": "buy"},  # 华兰生物
+    {"code": "sz002608", "market": "A股股票-新浪", "monitor": "buy"},  # 江苏国信
+    {"code": "sh600329", "market": "A股股票-新浪", "monitor": "buy"},  # 达仁堂
+    {"code": "sh601158", "market": "A股股票-新浪", "monitor": "buy"},  # 重庆水务
+    {"code": "sh600008", "market": "A股股票-新浪", "monitor": "buy"},  # 首创环保
+    {"code": "sh600098", "market": "A股股票-新浪", "monitor": "buy"},  # 广州发展
+    {"code": "sz000539", "market": "A股股票-新浪", "monitor": "buy"},  # 粤电力A
+    {"code": "sh601997", "market": "A股股票-新浪", "monitor": "buy"},  # 贵阳银行
+    {"code": "sz000703", "market": "A股股票-新浪", "monitor": "buy"},  # 厦逸石化
+    {"code": "sz000875", "market": "A股股票-新浪", "monitor": "buy"},  # 吉电股份
+    {"code": "sz002372", "market": "A股股票-新浪", "monitor": "buy"},  # 伟星新材
+    {"code": "sz001213", "market": "A股股票-新浪", "monitor": "buy"},  # 中铁特货
+    {"code": "sz003035", "market": "A股股票-新浪", "monitor": "buy"},  # 南网能源
+    {"code": "sh600648", "market": "A股股票-新浪", "monitor": "buy"},  # 外高桥
+    {"code": "sz000089", "market": "A股股票-新浪", "monitor": "buy"},  # 深圳机场
+    {"code": "sh600916", "market": "A股股票-新浪", "monitor": "buy"},  # 中国黄金
+    {"code": "sh601827", "market": "A股股票-新浪", "monitor": "buy"},  # 三峰环境
+    {"code": "sh600755", "market": "A股股票-新浪", "monitor": "buy"},  # 厦门国贸
+    {"code": "sh600116", "market": "A股股票-新浪", "monitor": "buy"},  # 三峡水利
+    {"code": "sh600908", "market": "A股股票-新浪", "monitor": "buy"},  # 无锡银行
+    {"code": "sz000685", "market": "A股股票-新浪", "monitor": "buy"},  # 中山公用
+    {"code": "sh600269", "market": "A股股票-新浪", "monitor": "buy"},  # 赣粤高速
+    {"code": "sh600639", "market": "A股股票-新浪", "monitor": "buy"},  # 浦东金桥
+    {"code": "sh600273", "market": "A股股票-新浪", "monitor": "buy"},  # 嘉化能源
+    {"code": "sh600211", "market": "A股股票-新浪", "monitor": "buy"},  # 西藏药业
+    {"code": "sh600572", "market": "A股股票-新浪", "monitor": "buy"},  # 康恩贝
+    {"code": "sh603132", "market": "A股股票-新浪", "monitor": "buy"},  # 金徽股份
+    {"code": "sz002807", "market": "A股股票-新浪", "monitor": "buy"},  # 江阴银行
+    {"code": "sh600459", "market": "A股股票-新浪", "monitor": "buy"},  # 贵研铂业
+    {"code": "sz002839", "market": "A股股票-新浪", "monitor": "buy"},  # 张家港行
+    {"code": "sh601860", "market": "A股股票-新浪", "monitor": "buy"},  # 紫金银行
+    {"code": "sz002053", "market": "A股股票-新浪", "monitor": "buy"},  # 云南能投
+    {"code": "sh603323", "market": "A股股票-新浪", "monitor": "buy"},  # 苏农银行
+    {"code": "sh600033", "market": "A股股票-新浪", "monitor": "buy"},  # 福建高速
+    {"code": "sh600874", "market": "A股股票-新浪", "monitor": "buy"},  # 创业环保
+    {"code": "sh605116", "market": "A股股票-新浪", "monitor": "buy"},  # 奥锐特
+    {"code": "sh603053", "market": "A股股票-新浪", "monitor": "buy"},  # 成都燃气
+    {"code": "sz000544", "market": "A股股票-新浪", "monitor": "buy"},  # 中原环保
+    {"code": "sh601069", "market": "A股股票-新浪", "monitor": "buy"},  # 福元医药
+    {"code": "sh600987", "market": "A股股票-新浪", "monitor": "buy"},  # 航民股份
+    {"code": "sh600035", "market": "A股股票-新浪", "monitor": "buy"},  # 楚天高速
+    {"code": "sh605368", "market": "A股股票-新浪", "monitor": "buy"},  # 蓝天燃气
+    {"code": "sh603071", "market": "A股股票-新浪", "monitor": "buy"},  # 物产环能
+    {"code": "sh603367", "market": "A股股票-新浪", "monitor": "buy"},  # 辰欣药业
+    {"code": "sh600897", "market": "A股股票-新浪", "monitor": "buy"},  # 厦门空港
+    {"code": "sh601065", "market": "A股股票-新浪", "monitor": "buy"},  # 江盐集团
+    {"code": "sh601518", "market": "A股股票-新浪", "monitor": "buy"},  # 吉林高速
+    {"code": "sh600351", "market": "A股股票-新浪", "monitor": "buy"},  # 亚宝药业
+    {"code": "sh603689", "market": "A股股票-新浪", "monitor": "buy"},  # 皖天然气
+    {"code": "sh603167", "market": "A股股票-新浪", "monitor": "buy"},  # 渤海轮渡
+    {"code": "sh600222", "market": "A股股票-新浪", "monitor": "buy"},  # 太龙药业
+    {"code": "sh603755", "market": "A股股票-新浪", "monitor": "buy"},   # 日辰股份
+
+    # 99.同花顺-持仓股
     {"code": "sz000999", "market": "A股股票-新浪", "monitor": "buy"},  # 华润三九   持有
     {"code": "sz002818", "market": "A股股票-新浪", "monitor": "buy"},  # 富森美     持有
     {"code": "sz000975", "market": "A股股票-新浪", "monitor": "buy"},  # 山金国际   持有
     {"code": "sz000564", "market": "A股股票-新浪", "monitor": "buy"},  # 供销大集   持有
     {"code": "sh600489", "market": "A股股票-新浪", "monitor": "buy"},  # 中金黄金   持有
     {"code": "sz002739", "market": "A股股票-新浪", "monitor": "buy"},  # 万达电影   持有
-    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "buy"},  # 华孚时尚   持有
+    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "buy"},  # 华孚时尚   已割肉,待上穿接回来
     {"code": "sz002262", "market": "A股股票-新浪", "monitor": "buy"},  # 恩华药业   持有
     {"code": "sh600233", "market": "A股股票-新浪", "monitor": "buy"},  # 圆通速递   持有
     {"code": "518800", "market": "ETF-东财", "monitor": "buy"},       # 黄金基金   持有
     {"code": "sz000938", "market": "A股股票-新浪", "monitor": "buy"},  # 紫金股份   持有
     {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行   持有
+    {"code": "159865", "market": "ETF-东财", "monitor": "buy"},       # 养殖ETF   持有,跟火哥投
+    {"code": "159766", "market": "ETF-东财", "monitor": "buy"},       # 旅游ETF   持有,跟火哥投
 
     # 二.监控卖出信号
     # 同花顺-持仓股
@@ -249,12 +515,13 @@ STOCKS = [
     {"code": "sz000564", "market": "A股股票-新浪", "monitor": "sell"},  # 供销大集   持有,补仓
     {"code": "sh600489", "market": "A股股票-新浪", "monitor": "sell"},  # 中金黄金   持有,补仓
     {"code": "sz002739", "market": "A股股票-新浪", "monitor": "sell"},  # 万达电影   持有,补仓
-    {"code": "sz002042", "market": "A股股票-新浪", "monitor": "sell"},  # 华孚时尚   持有,补仓
     {"code": "sz002262", "market": "A股股票-新浪", "monitor": "sell"},  # 恩华药业   持有,补仓
     {"code": "sh600233", "market": "A股股票-新浪", "monitor": "sell"},  # 圆通速递   持有,补仓
     {"code": "518800", "market": "ETF-东财", "monitor": "sell"},       # 黄金基金   长期持,上穿补
     {"code": "sz000938", "market": "A股股票-新浪", "monitor": "sell"},  # 紫金股份   持有
     {"code": "sh601398", "market": "A股股票-新浪", "monitor": "sell"},  # 工商银行   长期持,上穿补
+    {"code": "159865", "market": "ETF-东财", "monitor": "buy"},        # 养殖ETF   持有,跟火哥投
+    {"code": "159766", "market": "ETF-东财", "monitor": "buy"},        # 旅游ETF   持有,跟火哥投
 
 
 
