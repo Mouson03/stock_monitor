@@ -18,7 +18,7 @@ import urllib.parse
 DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"  # 钉钉机器人加签密钥
 DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"  # 钉钉机器人webhooks链接
 STOCKS = [
-    # 数据源
+     # 数据源
     # A股股票-新浪 : 需市场标识,股票代码可以在 ak.stock_zh_a_spot() 中获取
     # ETF-东财 ： 不需市场标识，ETF 代码可以在 ak.fund_etf_spot_em() 中获取或查看东财主页
     # A股指数-东财 ： 需市场标识， 支持：sz深交所, sh上交所, csi中证指数
@@ -506,6 +506,7 @@ STOCKS = [
     {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行   持有
     {"code": "159865", "market": "ETF-东财", "monitor": "buy"},       # 养殖ETF   持有,跟火哥投
     {"code": "159766", "market": "ETF-东财", "monitor": "buy"},       # 旅游ETF   持有,跟火哥投
+    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "buy"},  # 华兰生物   持有
 
     # 二.监控卖出信号
     # 同花顺-持仓股
@@ -522,8 +523,7 @@ STOCKS = [
     {"code": "sh601398", "market": "A股股票-新浪", "monitor": "sell"},  # 工商银行   长期持,上穿补
     {"code": "159865", "market": "ETF-东财", "monitor": "buy"},        # 养殖ETF   持有,跟火哥投
     {"code": "159766", "market": "ETF-东财", "monitor": "buy"},        # 旅游ETF   持有,跟火哥投
-
-
+    {"code": "sh600233", "market": "A股股票-新浪", "monitor": "buy"},  # 圆通速递   持有
 
     #test
 
