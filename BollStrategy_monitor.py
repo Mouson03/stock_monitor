@@ -227,10 +227,10 @@ STOCKS = [
     {"code": "sh601199", "market": "A股股票-新浪", "monitor": "buy"},  # 江南水务
     {"code": "sz002033", "market": "A股股票-新浪", "monitor": "buy"},  # 丽江股份
 
-    # 5.通达信-250波幅30标5   共1个（18-17），与3，4重复的没添加
+    # 5.通达信-250波幅30标5   共1个（18-17），与3，4重复的没添加        2025.5.21选出
     {"code": "sz001213", "market": "A股股票-新浪", "monitor": "buy"},  # 中特特货
 
-    # 6.通达信-120波幅小20   共154个，未筛选与前面面重复的，懒得选了
+    # 6.通达信-120波幅小20   共154个，未筛选与前面面重复的，懒得选了      2025.5.21选出
     {"code": "sh601398", "market": "A股股票-新浪", "monitor": "buy"},  # 工商银行
     {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  # 中国移动
     {"code": "sh601939", "market": "A股股票-新浪", "monitor": "buy"},  # 建设银行
@@ -386,7 +386,7 @@ STOCKS = [
     {"code": "sh603167", "market": "A股股票-新浪", "monitor": "buy"},  # 渤海轮渡
     {"code": "sh600573", "market": "A股股票-新浪", "monitor": "buy"},  # 惠泉啤酒
 
-    # 7.通达信-120标准差小3.5   共103个，未筛选与前面面重复的，懒得选了
+    # 7.通达信-120标准差小3.5   共103个，未筛选与前面面重复的，懒得选了            2025.5.21选出
     {"code": "sh600941", "market": "A股股票-新浪", "monitor": "buy"},  # 中国移动
     {"code": "sh601318", "market": "A股股票-新浪", "monitor": "buy"},  # 中国平安
     {"code": "sh600900", "market": "A股股票-新浪", "monitor": "buy"},  # 长江电力
@@ -632,7 +632,14 @@ def check_boll_signal(df, monitor_type="buy"):  # 默认监控买入信号
 
     # 生成信号
     buy = today['low'] >= today['lower'] and yesterday['low'] <= yesterday['lower']
-    sell = today['high'] <= today['upper'] and yesterday['high'] >= yesterday['upper']
+#   sell = today['high'] <= today['upper'] and yesterday['high'] >= yesterday['upper']
+    sell = (
+        # 原条件：最高下穿上轨
+        (today['high'] <= today['upper'] and yesterday['high'] >= yesterday['upper'])
+        or
+        # 新条件：收盘下穿上轨
+        (today['close'] > today['upper'])
+    )
 
     if monitor_type == "buy" and buy:
         return 'BUY'
