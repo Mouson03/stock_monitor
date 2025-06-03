@@ -29,9 +29,6 @@ def load_stocks_list_from_csv():
     needed_cols = ['symbol','name','data_interface','monitor_signal','importance_degree','total_mv']    # 选择需要的列
     stocks_list=df_unique[needed_cols].to_dict(orient="records")      #将df转为字典数列
 
-    for stock in stocks_list:   #用于检查标的列表是否正确
-        print(stock)
-
     return stocks_list
 
 #获取标的行情数据
