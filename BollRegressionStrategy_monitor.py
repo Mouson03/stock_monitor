@@ -25,9 +25,13 @@ def load_stocks_list_from_csv():
     # 给列填充默认值
     df_unique["monitor_signal"] = df_unique["monitor_signal"].fillna("最低上穿下轨")    # monitor_signal列 默认 "最低上穿下轨"
     df_unique["importance_degree"] = df_unique["importance_degree"].fillna("默认")     # importance_degree列 默认 "默认"
+    df_unique["stock_category"] = df_unique["stock_category"].fillna("默认")
 
-    needed_cols = ['symbol','name','data_interface','monitor_signal','importance_degree','total_mv']    # 选择需要的列
+    needed_cols = ['symbol','name','data_interface','monitor_signal','stock_category','importance_degree','total_mv']    # 选择需要的列
     stocks_list=df_unique[needed_cols].to_dict(orient="records")      #将df转为字典数列
+
+#    for stock in stocks_list:   #用于检查标的列表是否正确
+#        print(stock)
 
     return stocks_list
 
@@ -185,6 +189,7 @@ def check_signal(stocks_list):
         symbol = stock["symbol"]
         data_interface = stock["data_interface"]
         monitor_signal = stock["monitor_signal"]
+        stock_category = stock['stock_category']
         importance_degree = stock["importance_degree"]
         total_mv_float = float(stock["total_mv"])      # CSV里的市值字符串转为浮点数.如果是nan,转后也是nan
 
@@ -210,6 +215,7 @@ def check_signal(stocks_list):
             all_signals.append({
                 "name": name,
                 "symbol": symbol,
+                "stock_category": stock_category,
                 "total_mv":   total_mv_float,
                 "signal_monitor":  monitor_signal,
                 "importance_degree":importance_degree
@@ -242,6 +248,7 @@ def format_signals_message(signals):
         format_message.append(f'''
 标的: {s["name"]}
 代码: {s["symbol"]}
+标的类型: {s["stock_category"]}
 市值: {s["total_mv"]} 亿
 监控信号: {s["signal_monitor"]}
 重要程度: {imp}
