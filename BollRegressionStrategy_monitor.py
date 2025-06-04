@@ -118,7 +118,7 @@ def get_stock_data(symbol, data_interface):
 
 
 #==========各种信号判断部分==========================================================================
-# 最低上传下轨
+# 最低上穿下轨
 def low_rise_boll_lower(data):
     if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
         return None
@@ -178,6 +178,46 @@ def high_foll_boll_upper(data):
         return True
     else:
         return False
+
+# 收盘低于下轨
+def close_beoow_boll_lower(data):
+    if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
+        return None
+
+    #指标计算
+    data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
+    data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
+    data['lower'] = data['mid'] - 2 * data['std']
+    today = data.iloc[-1]
+
+    #信号判断
+    signal_cond = today['close'] <= today['lower']
+
+    if signal_cond:
+        return True
+    else:
+        return False
+
+# 收盘低于下轨或最低上穿下轨
+def close_beoow_boll_lower_or_low_rise_boll_lower(data):
+    if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
+        return None
+
+    #指标计算
+    data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
+    data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
+    data['lower'] = data['mid'] - 2 * data['std']
+    data['upper'] = data['mid'] + 2 * data['std']
+    yesterday = data.iloc[-2]
+    today = data.iloc[-1]
+
+    #信号判断
+    signal_cond = today['close'] <= today['lower'] or (yesterday['low'] <= yesterday['lower']) and (today['low'] >= today['lower'])
+    if signal_cond:
+        return True
+    else:
+        return False
+
 #==============================================================================================
 
 #遍历标的,检查信号
@@ -208,15 +248,32 @@ def check_signal(stocks_list):
         signal_appear = False
         if monitor_signal == "最低上穿下轨":
             signal_appear = low_rise_boll_lower(data)
-        elif monitor_signal == "收盘上穿上轨":
+        elif monitor_signal == "最低上穿下轨或收盘上穿上轨":
             signal_appear = low_rise_boll_lower_or_close_rise_boll_upper(data)
+        elif monitor_signal == "最高下穿上轨":
+            signal_appear = high_foll_boll_upper(data)
+        elif monitor_signal == "收盘低于下轨":
+            signal_appear = close_beoow_boll_lower(data)
+        elif monitor_signal == "收盘低于下轨或最低上穿下轨":
+            signal_appear = close_beoow_boll_lower_or_low_rise_boll_lower(data)
 
         if signal_appear:
+
+            # 添加一个“布林带分位”的钉钉字段
+            data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
+            data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
+            data['lower'] = data['mid'] - 2 * data['std']
+            data['upper'] = data['mid'] + 2 * data['std']
+            today = data.iloc[-1]
+            boll_percentile = ((today['close']-today['lower']) / (today['upper']-today['lower']))*100   # 计算布林带分位
+            boll_percentile = round(boll_percentile, 2)  # 保留两位小数
+
             all_signals.append({
                 "name": name,
                 "symbol": symbol,
                 "stock_category": stock_category,
                 "total_mv":   total_mv_float,
+                "boll_percentile": boll_percentile,    # 布林带分位钉钉字段
                 "signal_monitor":  monitor_signal,
                 "importance_degree":importance_degree
             })
@@ -232,7 +289,8 @@ def format_signals_message(signals):
     importance_order = {"持仓": 7, "选出待买":6, "非常高": 5, "高": 4, "中": 3, "低": 2, "非常低": 1, "默认": 0}
     signals_sorted = sorted(signals, key=lambda x: (
         -importance_order.get(x.get("importance_degree", ""), 0),
-        -x.get("total_mv", 0)
+#        -x.get("total_mv", 0)   # 市值作为第二排序依据，缺失值排最后
+        x.get("boll_percentile", 999)  # 布林带分位作为第二排序依据，缺失值排最后
     ))
 
     #格式化排序后的信息
@@ -250,6 +308,7 @@ def format_signals_message(signals):
 代码: {s["symbol"]}
 标的类型: {s["stock_category"]}
 市值: {s["total_mv"]} 亿
+布林带分位: {s["boll_percentile"]} %
 监控信号: {s["signal_monitor"]}
 重要程度: {imp}
 --------------------'''
