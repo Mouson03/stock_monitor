@@ -26,8 +26,9 @@ def load_stocks_list_from_csv():
     df_unique["monitor_signal"] = df_unique["monitor_signal"].fillna("最低上穿下轨")    # monitor_signal列 默认 "最低上穿下轨"
     df_unique["importance_degree"] = df_unique["importance_degree"].fillna("默认")     # importance_degree列 默认 "默认"
     df_unique["stock_category"] = df_unique["stock_category"].fillna("默认")
+    df_unique["cost"] = df_unique["cost"].fillna("1")   #成本默认1,防止忘填而报错
 
-    needed_cols = ['symbol','name','data_interface','monitor_signal','stock_category','importance_degree','total_mv']    # 选择需要的列
+    needed_cols = ['symbol','name','data_interface','monitor_signal','stock_category','importance_degree','total_mv','cost']    # 选择需要的列
     stocks_list=df_unique[needed_cols].to_dict(orient="records")      #将df转为字典数列
 
 #    for stock in stocks_list:   #用于检查标的列表是否正确
@@ -119,7 +120,7 @@ def get_stock_data(symbol, data_interface):
 
 #==========各种信号判断部分==========================================================================
 # 最低上穿下轨
-def low_rise_boll_lower(data):
+def low_rise_lower(data):
     if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
         return None
 
@@ -138,8 +139,8 @@ def low_rise_boll_lower(data):
     else:
         return False
 
-# 最低上穿下轨或收盘上穿上轨
-def low_rise_boll_lower_or_close_rise_boll_upper(data):
+# 跌5%且最低上穿下轨或跌10%或收盘上穿上轨
+def foll_5percent_and_low_rise_lower_or_foll_10percent_or_close_rise_upper(data,cost):
     if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
         return None
 
@@ -152,15 +153,17 @@ def low_rise_boll_lower_or_close_rise_boll_upper(data):
     today = data.iloc[-1]
 
     #信号判断
-    signal_cond = ((yesterday['low'] <= yesterday['lower']) and (today['low'] >= today['lower'])) or (today['close'] >= today['upper'])
-
-    if signal_cond:
+    condition1 = ((today['close']-cost)/cost<-0.05) and ((yesterday['low'] <= yesterday['lower']) and (today['low'] >= today['lower']))    # 条件1: 跌5%且最低上穿下轨
+    condition2 = (today['close']-cost)/cost<-0.10                                                                                          # 条件2: 跌10%
+    condition3 = ((yesterday['low'] <= yesterday['lower']) and (today['low'] >= today['lower'])) or (today['close'] >= today['upper'])    # 条件3: 收盘上穿上轨
+    signal_conditons =condition1 or condition2 or condition3
+    if signal_conditons:
         return True
     else:
         return False
 
 # 最高下穿上轨
-def high_foll_boll_upper(data):
+def high_foll_upper(data):
     if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
         return None
 
@@ -180,7 +183,7 @@ def high_foll_boll_upper(data):
         return False
 
 # 收盘低于下轨
-def close_beoow_boll_lower(data):
+def close_beoow_lower(data):
     if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
         return None
 
@@ -199,7 +202,7 @@ def close_beoow_boll_lower(data):
         return False
 
 # 收盘低于下轨或最低上穿下轨
-def close_beoow_boll_lower_or_low_rise_boll_lower(data):
+def close_beoow_lower_or_low_rise_lower(data):
     if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
         return None
 
@@ -236,29 +239,32 @@ def check_signal(stocks_list):
         # 拉取标的行情数据
         data = get_stock_data(symbol, data_interface)
 
+        print(f"\n名称 : {stock['name']}")   # 用于查看程序运行进度
         print(f"代码 : {stock['symbol']}")  # 用于查看程序运行进度
         if data is not None:  # 用于检查代码和数据是否正确对应
             print(f"最新日期 : {data['date'].iloc[-1].strftime('%Y-%m-%d')}")  # 只打印日期(本来也只有日期)
-            #print(f"最新价 : {df['close'].iloc[-1]}\n")
+            #print(f"最新价 : {data['close'].iloc[-1]}")
 
         if data is None or len(data) < (BOLL_WINDOW + 2):  # 确保data有数据
             continue
 
         # 根据 monitor_signal 分发到各个判断函数
         signal_appear = False
-        if monitor_signal == "最低上穿下轨":
-            signal_appear = low_rise_boll_lower(data)
-        elif monitor_signal == "最低上穿下轨或收盘上穿上轨":
-            signal_appear = low_rise_boll_lower_or_close_rise_boll_upper(data)
+        if monitor_signal == "最低上穿下轨":     #默认监控信号
+            signal_appear = low_rise_lower(data)
+        elif monitor_signal == "跌5%且最低上穿下轨或跌10%或收盘上穿上轨":
+            cost = float(stock["cost"])    #只有持仓股才传入成本
+            signal_appear = foll_5percent_and_low_rise_lower_or_foll_10percent_or_close_rise_upper(data,cost)    # 跌5%且最低上穿下轨或跌10%或收盘上穿上轨
         elif monitor_signal == "最高下穿上轨":
-            signal_appear = high_foll_boll_upper(data)
+            signal_appear = high_foll_upper(data)
         elif monitor_signal == "收盘低于下轨":
-            signal_appear = close_beoow_boll_lower(data)
+            signal_appear = close_beoow_lower(data)
         elif monitor_signal == "收盘低于下轨或最低上穿下轨":
-            signal_appear = close_beoow_boll_lower_or_low_rise_boll_lower(data)
+            signal_appear = close_beoow_lower_or_low_rise_lower(data)
+        else:
+            print(f"{symbol} {name} 未指定监控信号")
 
         if signal_appear:
-
             # 添加一个“布林带分位”的钉钉字段
             data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
             data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
@@ -304,7 +310,7 @@ def format_signals_message(signals):
             current_importance = imp
 
         format_message.append(f'''
-标的: {s["name"]}
+名称: {s["name"]}
 代码: {s["symbol"]}
 标的类型: {s["stock_category"]}
 市值: {s["total_mv"]} 亿
