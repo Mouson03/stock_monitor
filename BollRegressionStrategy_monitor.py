@@ -19,7 +19,7 @@ BOLL_WINDOW = 20
 
 #获取标的列表
 def load_stocks_list_from_csv():
-    df = pd.read_csv('BollRegressionStrategy_stock_monitor_list.csv', encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
+    df = pd.read_csv('BollRegressionStrategy_stock_monitor_list_merge.csv', encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
     df_unique = df.drop_duplicates(subset=["symbol","monitor_signal"], keep="first").copy()      #去重,symbol和monitor_signal都相同的标的,只保留第一个.加.copy(),此时df_unique是独立的dataframe而非视图
 
     # 给列填充默认值
