@@ -20,13 +20,13 @@ BOLL_WINDOW = 20
 #获取标的列表
 def load_stocks_list_from_csv():
     df = pd.read_csv('BollRegressionStrategy_stock_monitor_list_merge.csv', encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
-    df_unique = df.drop_duplicates(subset=["symbol","monitor_signal"], keep="first").copy()      #去重,symbol和monitor_signal都相同的标的,只保留第一个.加.copy(),此时df_unique是独立的dataframe而非视图
+    #df_unique = df.drop_duplicates(subset=["symbol","monitor_signal"], keep="first").copy()      #去重,symbol和monitor_signal都相同的标的,只保留第一个.加.copy(),此时df_unique是独立的dataframe而非视图
 
     # 给列填充默认值
-    df_unique["monitor_signal"] = df_unique["monitor_signal"].fillna("最低上穿下轨")    # monitor_signal列 默认 "最低上穿下轨"
-    df_unique["importance_degree"] = df_unique["importance_degree"].fillna("默认")     # importance_degree列 默认 "默认"
-    df_unique["stock_category"] = df_unique["stock_category"].fillna("默认")
-    df_unique["cost"] = df_unique["cost"].fillna("1")   #成本默认1,防止忘填而报错
+    df["monitor_signal"] = df["monitor_signal"].fillna("最低上穿下轨")    # monitor_signal列 默认 "最低上穿下轨"
+    df["importance_degree"] = df["importance_degree"].fillna("默认")     # importance_degree列 默认 "默认"
+    df["stock_category"] = df["stock_category"].fillna("默认")
+    df["cost"] = df["cost"].fillna("1")   #成本默认1,防止忘填而报错
 
     needed_cols = ['symbol','name','data_interface','monitor_signal','stock_category','importance_degree','total_mv','cost']    # 选择需要的列
     stocks_list=df_unique[needed_cols].to_dict(orient="records")      #将df转为字典数列
