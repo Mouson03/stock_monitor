@@ -19,7 +19,7 @@ BOLL_WINDOW = 20
 
 #获取标的列表
 def load_stocks_list_from_csv():
-    df = pd.read_csv('BollRegressionStrategy_stock_monitor_list_merge.csv', encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
+    df = pd.read_csv('test.csv', encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
     #df_unique = df.drop_duplicates(subset=["symbol","monitor_signal"], keep="first").copy()      #去重,symbol和monitor_signal都相同的标的,只保留第一个.加.copy(),此时df_unique是独立的dataframe而非视图
 
     # 给列填充默认值
@@ -155,8 +155,9 @@ def foll_5percent_and_low_rise_lower_or_foll_10percent_or_close_rise_upper(data,
     #信号判断
     condition1 = ((today['close']-cost)/cost<-0.05) and ((yesterday['low'] <= yesterday['lower']) and (today['low'] >= today['lower']))    # 条件1: 跌5%且最低上穿下轨
     condition2 = (today['close']-cost)/cost<-0.10                                                                                          # 条件2: 跌10%
-    condition3 = ((yesterday['low'] <= yesterday['lower']) and (today['low'] >= today['lower'])) or (today['close'] >= today['upper'])    # 条件3: 收盘上穿上轨
+    condition3 = (today['close'] >= today['upper'])    # 条件3: 收盘上穿上轨
     signal_conditons =condition1 or condition2 or condition3
+    
     if signal_conditons:
         return True
     else:
