@@ -13,13 +13,13 @@ import urllib.parse
 # ===== 用户配置区 =====
 DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"  # 钉钉机器人加签密钥
 DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"  # 钉钉机器人webhooks链接
-stocks_list_csv_path="BollRegressionStrategy_stock_monitor_list.csv"
+#stocks_list_csv_path="BollRegressionStrategy_stock_monitor_list.csv"
 BOLL_WINDOW = 20
 # =====================
 
 #获取标的列表
 def load_stocks_list_from_csv():
-    df = pd.read_csv(stocks_list_csv_path, encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
+    df = pd.read_csv('BollRegressionStrategy_stock_monitor_list_merge.csv', encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
     #df_unique = df.drop_duplicates(subset=["symbol","monitor_signal"], keep="first").copy()      #去重,symbol和monitor_signal都相同的标的,只保留第一个.加.copy(),此时df_unique是独立的dataframe而非视图
 
     # 给列填充默认值
