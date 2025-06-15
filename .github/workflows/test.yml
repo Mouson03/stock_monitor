@@ -1,8 +1,6 @@
 name: Daily Test Script
 
 on:
-  schedule:
-    - cron: '0 0 * * *'  # 每天凌晨运行一次
   workflow_dispatch:
 
 jobs:
