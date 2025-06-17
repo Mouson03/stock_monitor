@@ -13,13 +13,12 @@ import urllib.parse
 # ===== 用户配置区 =====
 DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"  # 钉钉机器人加签密钥
 DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"  # 钉钉机器人webhooks链接
-#stocks_list_csv_path="BollRegressionStrategy_stock_monitor_list.csv"
 BOLL_WINDOW = 20
 # =====================
 
 #获取标的列表
 def load_stocks_list_from_csv():
-    df = pd.read_csv('BollRegressionStrategy_stock_monitor_list_merge.csv', encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
+    df = pd.read_csv("BollRegressionStrategy_stock_monitor_list_merge.csv", encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
     #df_unique = df.drop_duplicates(subset=["symbol","monitor_signal"], keep="first").copy()      #去重,symbol和monitor_signal都相同的标的,只保留第一个.加.copy(),此时df_unique是独立的dataframe而非视图
 
     # 给列填充默认值
@@ -80,18 +79,21 @@ def get_stock_data(symbol, data_interface):
                     spot_data = spot_df[spot_df['代码'] == symbol].iloc[0]  # 将spot_df中的当前标的的数据赋值给spot_data
                 except IndexError:
                     print(f"spot_df中无 A股股票{symbol} 的数据")
-            # 构建当日K线
-            today_date = datetime.now().strftime("%Y-%m-%d")
-            today_kline = {
-                'date': today_date,
-                'open': spot_data['今开'],
-                'high': spot_data['最高'],
-                'low': spot_data['最低'],
-                'close': spot_data['最新价']
-            }
+
             # 合并数据
+            today_date = datetime.now().strftime("%Y-%m-%d")
             if today_date not in raw_df['date'].astype(str).values:  # 当A股股票-新浪的数据中没有当日数据,才合并数据
+                # 构建当日K线
+                today_kline = {
+                    'date': today_date,
+                    'open': spot_data['今开'],
+                    'high': spot_data['最高'],
+                    'low': spot_data['最低'],
+                    'close': spot_data['最新价']
+                }
+                #合并数据
                 raw_df = pd.concat([raw_df, pd.DataFrame([today_kline])], ignore_index=True)
+
 
         elif data_interface == "ETF-东财":
             raw_df = ak.fund_etf_hist_em(symbol=symbol, start_date="20250401", adjust="qfq")
@@ -114,16 +116,13 @@ def get_stock_data(symbol, data_interface):
         return data.sort_values('date', ascending=True).reset_index(drop=True)
 
     except Exception as e:
-        print(f"获取{symbol}数据失败：{str(e)}\n ")
+        print(f"\n获取{symbol}数据失败：{str(e)}\n ")
         return None
 
 
 #==========各种信号判断部分==========================================================================
 # 最低上穿下轨
 def low_rise_lower(data):
-    if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
-        return None
-
     #指标计算
     data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
     data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
@@ -141,9 +140,6 @@ def low_rise_lower(data):
 
 # 跌5%且最低上穿下轨或跌10%或收盘上穿上轨
 def foll_5percent_and_low_rise_lower_or_foll_10percent_or_close_rise_upper(data,cost):
-    if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
-        return None
-
     #指标计算
     data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
     data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
@@ -165,9 +161,6 @@ def foll_5percent_and_low_rise_lower_or_foll_10percent_or_close_rise_upper(data,
 
 # 最高下穿上轨
 def high_foll_upper(data):
-    if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
-        return None
-
     #指标计算
     data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
     data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
@@ -185,9 +178,6 @@ def high_foll_upper(data):
 
 # 收盘低于下轨
 def close_beoow_lower(data):
-    if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
-        return None
-
     #指标计算
     data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
     data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
@@ -204,9 +194,6 @@ def close_beoow_lower(data):
 
 # 收盘低于下轨或最低上穿下轨
 def close_beoow_lower_or_low_rise_lower(data):
-    if data is None or len(data) < (BOLL_WINDOW + 2):     #确保数据足够
-        return None
-
     #指标计算
     data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
     data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
@@ -239,6 +226,10 @@ def check_signal(stocks_list):
 
         # 拉取标的行情数据
         data = get_stock_data(symbol, data_interface)
+
+        if data is None or len(data) < (BOLL_WINDOW + 2):  # 确保数据足够
+            print(f"\n{symbol} {name}  的数据行数不足")
+            continue
 
         print(f"\n名称 : {stock['name']}")   # 用于查看程序运行进度
         print(f"代码 : {stock['symbol']}")  # 用于查看程序运行进度
