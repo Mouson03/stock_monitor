@@ -78,10 +78,6 @@ def get_stock_data(symbol, data_interface):
                 try:
                     spot_data = spot_df[spot_df['代码'] == symbol].iloc[0]  # 将spot_df中的当前标的的数据赋值给spot_data
 
-                    #测试
-                    print("spot_data行")
-                    print(spot_data)
-
                 except IndexError:
                     print(f"spot_df中无 A股股票{symbol} 的数据")
 
@@ -100,18 +96,8 @@ def get_stock_data(symbol, data_interface):
                     'close': spot_data['最新价']
                 }
 
-                #测试
-                print("today_kline")
-                print(today_kline)
-
                 #合并数据
                 raw_df = pd.concat([raw_df, pd.DataFrame([today_kline])], ignore_index=True)
-
-                #测试
-                print('合并后的数据raw_df')
-                print(raw_df)
-                print("raw_df的数据类型")
-                print(raw_df.dtypes)
 
         elif data_interface == "ETF-东财":
             raw_df = ak.fund_etf_hist_em(symbol=symbol, start_date="20250401", adjust="qfq")
@@ -141,10 +127,6 @@ def get_stock_data(symbol, data_interface):
 #==========各种信号判断部分==========================================================================
 # 最低上穿下轨
 def low_rise_lower(data):
-
-    #测试
-    print("所有列的数据类型：\n")
-    print(data.dtypes)
 
     #指标计算
     data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
