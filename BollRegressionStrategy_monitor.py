@@ -11,14 +11,14 @@ import urllib.parse
 
 
 # ===== 用户配置区 =====
-DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"  # 钉钉机器人加签密钥
+DING_SECRET = "BollRegressionStrategy_stock_monitor_list_merge.csv"  # 钉钉机器人加签密钥
 DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"  # 钉钉机器人webhooks链接
 BOLL_WINDOW = 20
 # =====================
 
 #获取标的列表
 def load_stocks_list_from_csv():
-    df = pd.read_csv("BollRegressionStrategy_stock_monitor_list_merge.csv", encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
+    df = pd.read_csv("test.csv", encoding="gbk" , dtype=str)  # 全部按字符串读取，防止股票代码前缀或 0 被丢失.用Excel保存的csv的编码不是utf-8
     #df_unique = df.drop_duplicates(subset=["symbol","monitor_signal"], keep="first").copy()      #去重,symbol和monitor_signal都相同的标的,只保留第一个.加.copy(),此时df_unique是独立的dataframe而非视图
 
     # 给列填充默认值
@@ -77,11 +77,19 @@ def get_stock_data(symbol, data_interface):
             if spot_df is not None:
                 try:
                     spot_data = spot_df[spot_df['代码'] == symbol].iloc[0]  # 将spot_df中的当前标的的数据赋值给spot_data
+
+                    #测试
+                    print("spot_data行")
+                    print(spot_data)
+
                 except IndexError:
                     print(f"spot_df中无 A股股票{symbol} 的数据")
 
             # 合并数据
             today_date = datetime.now().strftime("%Y-%m-%d")
+
+            #测试
+
             if today_date not in raw_df['date'].astype(str).values:  # 当A股股票-新浪的数据中没有当日数据,才合并数据
                 # 构建当日K线
                 today_kline = {
@@ -91,9 +99,19 @@ def get_stock_data(symbol, data_interface):
                     'low': spot_data['最低'],
                     'close': spot_data['最新价']
                 }
+
+                #测试
+                print("today_kline")
+                print(today_kline)
+
                 #合并数据
                 raw_df = pd.concat([raw_df, pd.DataFrame([today_kline])], ignore_index=True)
 
+                #测试
+                print('合并后的数据raw_df')
+                print(raw_df)
+                print("raw_df的数据类型")
+                print(raw_df.dtypes)
 
         elif data_interface == "ETF-东财":
             raw_df = ak.fund_etf_hist_em(symbol=symbol, start_date="20250401", adjust="qfq")
@@ -123,6 +141,11 @@ def get_stock_data(symbol, data_interface):
 #==========各种信号判断部分==========================================================================
 # 最低上穿下轨
 def low_rise_lower(data):
+
+    #测试
+    print("所有列的数据类型：\n")
+    print(data.dtypes)
+
     #指标计算
     data['mid'] = data['close'].rolling(BOLL_WINDOW).mean()
     data['std'] = data['close'].rolling(BOLL_WINDOW).std(ddof=1)
