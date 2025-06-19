@@ -84,8 +84,6 @@ def get_stock_data(symbol, data_interface):
             # 合并数据
             today_date = datetime.now().strftime("%Y-%m-%d")
 
-            #测试
-
             if today_date not in raw_df['date'].astype(str).values:  # 当A股股票-新浪的数据中没有当日数据,才合并数据
                 # 构建当日K线
                 today_kline = {
