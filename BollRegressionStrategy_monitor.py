@@ -9,7 +9,6 @@ import hashlib
 import base64
 import urllib.parse
 
-
 # ===== 用户配置区 =====
 DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"  # 钉钉机器人加签密钥
 DING_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=19240afb66cf08cdac8d46cd875bdf3cf37b8adc9ad487caa12af54b655a949c"  # 钉钉机器人webhooks链接
@@ -83,7 +82,6 @@ def get_stock_data(symbol, data_interface):
 
             # 合并数据
             today_date = datetime.now().strftime("%Y-%m-%d")
-
             if today_date not in raw_df['date'].astype(str).values:  # 当A股股票-新浪的数据中没有当日数据,才合并数据
                 # 构建当日K线
                 today_kline = {
