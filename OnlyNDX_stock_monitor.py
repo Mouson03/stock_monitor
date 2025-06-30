@@ -5,6 +5,7 @@
 相较于”监控 for_actions_v5.py“，此代码更新内容：
 1.代码每天只在A股开盘时运行3次(1次就够了,3次是为了避免出现运行失败)
 2.如果说出现错误(某标的check_signal的data行数不足),就发送消息到钉钉,避免因为接口出问题,后续错过监控信号
+3.添加了超时时长,避免actions网速慢而获取数据失败
 '''
 import akshare as ak
 import pandas as pd
@@ -16,6 +17,9 @@ import hmac
 import hashlib
 import base64
 import urllib.parse
+import socket   #用于设置请求的超时时长
+socket.setdefaulttimeout(120)  # 全局 socket 超时设为 30s
+
 
 # ===== 用户配置区 =====
 DING_SECRET = "SECdf943efa6d9781c1e1909a00f6f28e382b11d3d444c6ad6c4cce2235e0a4d1d3"  # 钉钉机器人加签密钥
@@ -143,6 +147,8 @@ def check_signal(stocks_list):
         if data is not None:  # 用于检查代码和数据是否正确对应
             print(f"最新日期 : {data['date'].iloc[-1].strftime('%Y-%m-%d')}")  # 只打印日期(本来也只有日期)
             print(f"最新价 : {data['close'].iloc[-1]}")
+            print(f"行情数据 : {data}")
+            print(f"\n----------------------------------------------------------------------------------")
 
         # 根据 monitor_signal 分发到各个判断函数
         signal_appear = False
