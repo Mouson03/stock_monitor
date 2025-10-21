@@ -93,6 +93,9 @@ def foll_or_rise_250Day_MA(data):
     yesterday = data.iloc[-2]
     today = data.iloc[-1]
 
+    print(f"今日250日均线：{today['ma']}") #打印250日均线，方便后续github运行，检查后期是否还正常运行
+    print(f"\n----------------------------------------------------------------------------------")
+
     #信号判断
     condition1 = yesterday['high'] >= yesterday['ma'] and today['high'] <= today['ma']  #下穿N日均线
     condition2 = yesterday['low'] <= yesterday['ma'] and today['low'] >= today['ma']  #上穿N日均线
@@ -148,7 +151,7 @@ def check_signal(stocks_list):
             print(f"最新日期 : {data['date'].iloc[-1].strftime('%Y-%m-%d')}")  # 只打印日期(本来也只有日期)
             print(f"最新价 : {data['close'].iloc[-1]}")
             print(f"行情数据 : {data}")
-            print(f"\n----------------------------------------------------------------------------------")
+            #print(f"\n----------------------------------------------------------------------------------")
 
         # 根据 monitor_signal 分发到各个判断函数
         signal_appear = False
