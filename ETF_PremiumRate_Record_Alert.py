@@ -25,7 +25,7 @@ holdings = {
     '513110': 0.5,
     '159659': 0.5,
     '513870': 0.5,
-    '513300': 10.0,        #测试
+    #'513300': 10.0,        #测试
     # 添加更多的持有ETF和阈值
 }
 
@@ -61,8 +61,8 @@ for etf in etf_list:
         result_dict[f"{etf}"] = round(premium_rate*100,2)
 
         # 检查持有的ETF的溢价率是否超过阈值
-        if etf in holdings and result_dict[f"{etf}"] < holdings[etf]:
-            alert_message = f"提醒: ETF {etf} 的溢价率为 {result_dict[f'{etf}']}%，超过了设定的阈值 {holdings[etf]}%"
+        if etf in holdings and result_dict[f"{etf}"] < holdings[etf]:            #小于阈值
+            alert_message = f"提醒: ETF {etf} 的溢价率为 {result_dict[f'{etf}']}%，小于设定的阈值 {holdings[etf]}%"
             alert_messages.append(alert_message)
 
 # 转换字典为DataFrame
