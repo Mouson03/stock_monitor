@@ -1,5 +1,6 @@
 #1.溢价率和涨跌幅单位是%  2.记录每天中午休息时的溢价率(即actions每周1-5早11点15分运行)
 #取消本脚本中的溢价率提醒功能,并转到Premium_Trade_Warn.py
+#2025.10.22   这个代码的溢价率提醒功能可用，但是只能判断大于或小于阈值，修改判断代码的符号就行，不能同时判断。
 import akshare as ak
 import pandas as pd
 import datetime
