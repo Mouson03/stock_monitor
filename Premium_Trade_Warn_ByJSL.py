@@ -87,7 +87,6 @@ def fetch_qdii_premium(fund_codes):
 def monitor_premium():
     fund_codes = list(holdings.keys())
     premiums = fetch_qdii_premium(fund_codes)
-    print(premiums)
 
     for code in fund_codes:
         premium = premiums.get(code)
@@ -115,3 +114,4 @@ def monitor_premium():
 # 运行监控
 if __name__ == "__main__":
     monitor_premium()
+
