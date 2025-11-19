@@ -49,4 +49,4 @@ jobs:
         pip install requests
 
     - name: Run python script
-      run: Premium_Trade_Warn_ByJSL.py
+      run: python Premium_Trade_Warn_ByJSL.py
