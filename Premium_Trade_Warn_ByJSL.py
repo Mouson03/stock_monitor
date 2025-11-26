@@ -20,7 +20,7 @@ holdings = {
     '159696': {'lower': 2.0, 'upper': 999},
     '159660': {'lower': 2.0, 'upper': 999},
     '513390': {'lower': 2.0, 'upper': 999},
-    '513870': {'lower': 1.0, 'upper': 999},
+    '513870': {'lower': 2.0, 'upper': 999},
     '161130': {'lower': 1.5, 'upper': 999},  #纳斯达克100LOF
 
     # 美国50ETF（规模降序）
@@ -114,5 +114,6 @@ def monitor_premium():
 # 运行监控
 if __name__ == "__main__":
     monitor_premium()
+
 
 
