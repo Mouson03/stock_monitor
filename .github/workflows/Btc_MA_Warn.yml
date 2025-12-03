@@ -7,9 +7,9 @@ name: btc均线策略_预警
 
 on:
 #每个小时各四次(每小时2次就行)
-  schedule:
-    #- cron: '07 1 * * 1-5' #9/07  
-    - cron: '23 1 * * 1-5' #9/23
+#  schedule:
+    #- cron: '07 1 * * 1-5' #9/07      
+#    - cron: '23 1 * * 1-5' #9/23
 
   workflow_dispatch:
 
